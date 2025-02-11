@@ -2,7 +2,7 @@ import { InputHandler } from './InputHandler.js';
 import { Particle } from './Particle.js';
 import { Player } from './Player.js';
 import { Roei } from './Roei.js';
-import { Liad } from './Liad.js';
+import { Alex } from './Alex.js';
 import { Yotam } from './Yotam.js';
 import { Tsuberi } from './Tsuberi.js';
 import { Background } from './Background.js';
@@ -95,7 +95,7 @@ export class Game {
         }
         else{
             this.enemies.forEach(enemy => {
-            enemy.update();
+            enemy.update(deltaTime);
             if (this.checkCollision(this.player1, enemy)){
                 enemy.markedForDeletion = true;
                 for (let i = 0; i < 10; i++) {
@@ -241,7 +241,7 @@ export class Game {
         if (this.movementRestriction) {
             const { minY, maxY, player } = this.movementRestriction;
             context.fillStyle = 'rgba(255, 0, 0, 0.5)';
-            context.fillRect(player.x - 20, minY, player.width + 40, 5);
+            context.fillRect(player.x - 20, minY - 5, player.width + 40, 5);
             context.fillRect(player.x - 20, maxY, player.width + 40, 5);
         }
     }
@@ -280,12 +280,12 @@ export class Game {
         
         else {
             if (direction === 1){
-                this.enemies.push(new Liad(this));
+                this.enemies.push(new Alex(this));
             }
             else {
-                let tempLiad = new Liad(this);
-                tempLiad.speedX = tempLiad.speedX * -1;
-                this.enemies.push(tempLiad);
+                let tempAlex = new Alex(this);
+                tempAlex.speedX = tempAlex.speedX * -1;
+                this.enemies.push(tempAlex);
             }
         }
 
@@ -319,9 +319,15 @@ export class Game {
             this.screenImage.src = './assets/tsuberiTank.png';
             this.eventWinner = attacker;
             this.showScreenImage = true;
+            this.player1.canShoot = false;
+            this.player2.canShoot = false;
+            this.player1.projectiles = [];
+            this.player2.projectiles = [];
 
             setTimeout(() => {
                 this.showScreenImage = false;
+                this.player1.canShoot = true;
+                this.player2.canShoot = true;
                 
                 this.targets = [];
                 for (let i = 0; i < 10; i++) {
@@ -356,13 +362,19 @@ export class Game {
             this.screenImage.src = './assets/tsuberiSalute.png';
             this.eventWinner = attacker;
             this.showScreenImage = true;
+            this.player1.canShoot = false;
+            this.player2.canShoot = false;
+            this.player1.projectiles = [];
+            this.player2.projectiles = [];
 
             setTimeout(() => {
                 this.showScreenImage = false;
-                
+                this.player1.canShoot = true;
+                this.player2.canShoot = true;
+
                 defender.y = this.height / 2 - defender.height / 2; // Center defender
-                const minY = defender.y - 100;
-                const maxY = defender.y + 100 + defender.height;
+                const minY = defender.y - 75;
+                const maxY = defender.y + 75 + defender.height;
                 this.movementRestriction = { player: defender, minY, maxY };
                 
                 setTimeout(() => {
@@ -378,9 +390,15 @@ export class Game {
             this.screenImage.src = './assets/tsuberiPlane.png';
             this.eventWinner = attacker;
             this.showScreenImage = true;
+            this.player1.canShoot = false;
+            this.player2.canShoot = false;
+            this.player1.projectiles = [];
+            this.player2.projectiles = [];
 
             setTimeout(() => {
                 this.showScreenImage = false;
+                this.player1.canShoot = true;
+                this.player2.canShoot = true;
 
                 defender.y = this.height / 2 - defender.height / 2;
                 defender.canShoot = false;

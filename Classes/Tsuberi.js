@@ -14,6 +14,7 @@ export class Tsuberi extends Enemy {
         this.speedX = Math.random() * -0.000000000000001;;
         this.projectiles = [];
         this.timer = 0;
+        this.maxFrame = 0;
     }
     shootTop(speed){
         if (speed > 0){

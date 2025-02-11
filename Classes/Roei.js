@@ -10,5 +10,6 @@ export class Roei extends Enemy {
         this.height = 190;
         this.y = Math.random() * (this.game.height * 0.95 - this.height);
         this.image = document.getElementById('roei');
+        this.maxFrame = 0;
     }
 }

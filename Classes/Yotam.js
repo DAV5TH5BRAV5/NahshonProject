@@ -10,5 +10,6 @@ export class Yotam extends Enemy {
         this.y = Math.random() * (this.game.height * 0.95 - this.height);
         this.image = document.getElementById('yotam');
         this.type = 'lucky';
+        this.maxFrame = 0;
     }
 }

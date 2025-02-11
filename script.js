@@ -29,7 +29,6 @@ function startAnim() {
 
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    const gameContainer = document.body; // Shake screen
 
     if (gameStarted) return; 
     gameStarted = true; 
@@ -152,7 +151,6 @@ function startReverseAnim(game, ctx, canvas, lastTime) {
 
         if (topIndex >= bottomIndex) {
             setTimeout(() => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 game.background.draw(ctx, true); 
 
             }, quickTime);

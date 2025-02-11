@@ -16,8 +16,8 @@
     font-family: 'Bangers', serif;
 }
 
-#layer1, #layer2, #layer3, #layer4, #layer5, #layer6, #layer7, #layer8, #layer9, #player, #roei, #yotam, #liad, #keva, #sonic, #tsuberi
-, #ptor{
+#layer1, #layer2, #layer3, #layer4, #layer5, #layer6, #layer7, #layer8, #layer9, #player, #roei, #yotam, #alex, #keva, #sonic, #tsuberi
+, #ptor, #alexFly{
     display: none;
 }
 

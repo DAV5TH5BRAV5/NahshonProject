@@ -10,7 +10,7 @@ export class InputHandler {
         this.eventTriggered = false;
         this.lastShotTimePlayer1 = 0;
         this.lastShotTimePlayer2 = 0;
-        this.shootCooldown = 100;  // 500ms cooldown between shots
+        this.shootCooldown = 100;  // 100ms cooldown between shots
         
         window.addEventListener('keydown', e => {
             if( ( (e.key === 'ArrowUp') || 
@@ -84,22 +84,20 @@ export class InputHandler {
     }
 
     update() {
-        // Continuously check for shooting keys being held down
         const currentTime = Date.now();
 
-        // Check if player 1 can shoot (based on cooldown)
+        // Check if player 1 can shoot
         if (this.keys.shootPlayer1 && currentTime - this.lastShotTimePlayer1 >= this.shootCooldown) {
-            this.game.player1.shootTop(3, this.game.player1.isEnd);  // Player 1 shoots
-            this.lastShotTimePlayer1 = currentTime;  // Update last shot time for player 1
+            this.game.player1.shootTop(3, this.game.player1.isEnd);  
+            this.lastShotTimePlayer1 = currentTime;  
         }
 
-        // Check if player 2 can shoot (based on cooldown)
+        // Check if player 2 can shoot
         if (this.keys.shootPlayer2 && currentTime - this.lastShotTimePlayer2 >= this.shootCooldown) {
-            this.game.player2.shootTop(-3, this.game.player2.isEnd);  // Player 2 shoots
-            this.lastShotTimePlayer2 = currentTime;  // Update last shot time for player 2
+            this.game.player2.shootTop(-3, this.game.player2.isEnd); 
+            this.lastShotTimePlayer2 = currentTime;  
         }
 
-        // Check for event triggers while updating
         if (this.game.eventActive && !this.game.eventWinner) {
             this.handleEventTrigger();
         }
