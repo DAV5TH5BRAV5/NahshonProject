@@ -196,6 +196,7 @@ function endGame(game, ctx, canvas, lastTime){
 function showInstructions() {
     alert("Use arrow keys to move your character and spacebar to jump. Avoid obstacles and reach the finish line!");
 }
+
 window.selectCharacter = selectCharacter;
 window.startAnim = startAnim;
 window.startGame = startGame;

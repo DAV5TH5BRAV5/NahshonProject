@@ -27,7 +27,7 @@ export class Game {
         this.timeLimit = 10000;
         this.speed = 1;
 
-        //event
+        //event1
         this.eventActive = false;
         this.eventCooldown = 20000; // 20 seconds
         this.nextEventTime = performance.now() + this.eventCooldown;
@@ -40,6 +40,11 @@ export class Game {
         this.screenImage.src = './assets/tsuberiTank.png';
         this.eventGlowTimer = 0;
 
+        //event 2
+        this.movementRestriction = null;
+
+        //event 3
+        this.bouncingEffect = null;
     }
     update(deltaTime){
         if (!this.gameOver) this.gameTime += deltaTime;
@@ -47,8 +52,8 @@ export class Game {
         if (this.gameOver) this.enemies = [];
         this.input.update();
         this.background.update();
-        this.player1.update('w', 's', deltaTime, this.player1.isEnd);
-        this.player2.update('ArrowUp', 'ArrowDown', deltaTime, this.player2.isEnd);
+        this.player1.update('w', 's', deltaTime, this.player1.isEnd, this.player1.canShoot);
+        this.player2.update('ArrowUp', 'ArrowDown', deltaTime, this.player2.isEnd, this.player2.canShoot);
         if(this.player1.ammoTimer > this.player1.ammoInterval && this.player1.ammo < this.player1.maxAmmo){
             this.player1.ammo ++;
             this.player1.ammoTimer = 0;
@@ -188,7 +193,19 @@ export class Game {
             }
         }
         if (this.eventActive) {
-            this.eventGlowTimer += deltaTime * 0.1; // Smoother glow timing
+            this.eventGlowTimer += deltaTime * 0.1;
+        }
+
+        if (this.movementRestriction) {
+            const { player, minY, maxY } = this.movementRestriction;
+            if (player.y < minY) player.y = minY;
+            if (player.y + player.height > maxY ) player.y = maxY - player.height;
+        }
+
+        if (this.bouncingEffect) {
+            const { player, initialY, amplitude, elapsedTime } = this.bouncingEffect;
+            this.bouncingEffect.elapsedTime += deltaTime;
+            player.y = initialY + Math.sin(this.bouncingEffect.elapsedTime * Math.PI / 500) * amplitude;
         }
     }
     draw(context){
@@ -213,11 +230,19 @@ export class Game {
 
         if (this.eventActive) {
             context.save();
-            const glowIntensity = (Math.sin(this.eventGlowTimer * 3) + 1) / 2; // Smooth, properly timed pulse
+            const glowIntensity = (Math.sin(this.eventGlowTimer * 3) + 1) / 2; 
             context.strokeStyle = `rgba(0, 0, 255, ${glowIntensity})`;
             context.lineWidth = 10;
             context.strokeRect(0, 0, this.width, this.height);
             context.restore();
+        }
+
+        // Draw movement restriction
+        if (this.movementRestriction) {
+            const { minY, maxY, player } = this.movementRestriction;
+            context.fillStyle = 'rgba(255, 0, 0, 0.5)';
+            context.fillRect(player.x - 20, minY, player.width + 40, 5);
+            context.fillRect(player.x - 20, maxY, player.width + 40, 5);
         }
     }
     addEnemy(direction){
@@ -281,25 +306,22 @@ export class Game {
         this.eventWinner = null;
         document.body.classList.add('event-glow');
         this.input.enableEventListeners();
-        console.log("Event started! Players can press 'g' or 'h'.");
 
         setTimeout(() => {
             this.eventActive = false;
             document.body.classList.remove('event-glow');
             this.nextEventTime = performance.now() + this.eventCooldown;
-            console.log("Event ended. Next event in 20 seconds.");
         }, 5000);
     }
 
     triggerAttack(attacker, defender) {
         if (this.eventActive && !this.eventWinner) {
+            this.screenImage.src = './assets/tsuberiTank.png';
             this.eventWinner = attacker;
             this.showScreenImage = true;
-            console.log("Showing full-screen event image.");
 
             setTimeout(() => {
                 this.showScreenImage = false;
-                console.log("Displaying target locations.");
                 
                 this.targets = [];
                 for (let i = 0; i < 10; i++) {
@@ -317,7 +339,6 @@ export class Game {
                 }
                 
                 setTimeout(() => {
-                    console.log("Firing missiles and checking collisions.");
                     this.targets.forEach(target => {
                         if (this.checkCollision(target, defender)) {
                             defender.lives -= 10;
@@ -325,6 +346,52 @@ export class Game {
                     });
                     this.targets = [];
                 }, 2000);
+
+            }, 3000);
+        }
+    }
+
+    triggerRestriction(attacker, defender) {
+        if (this.eventActive && !this.eventWinner) {
+            this.screenImage.src = './assets/tsuberiSalute.png';
+            this.eventWinner = attacker;
+            this.showScreenImage = true;
+
+            setTimeout(() => {
+                this.showScreenImage = false;
+                
+                defender.y = this.height / 2 - defender.height / 2; // Center defender
+                const minY = defender.y - 100;
+                const maxY = defender.y + 100 + defender.height;
+                this.movementRestriction = { player: defender, minY, maxY };
+                
+                setTimeout(() => {
+                    this.movementRestriction = null;
+                }, 10000);
+
+            }, 3000);
+        }
+    }
+
+    triggerBouncing(attacker, defender) {
+        if (this.eventActive && !this.eventWinner) {
+            this.screenImage.src = './assets/tsuberiPlane.png';
+            this.eventWinner = attacker;
+            this.showScreenImage = true;
+
+            setTimeout(() => {
+                this.showScreenImage = false;
+
+                defender.y = this.height / 2 - defender.height / 2;
+                defender.canShoot = false;
+                const initialY = defender.y;
+                const amplitude = 50; 
+                this.bouncingEffect = { player: defender, initialY, amplitude, elapsedTime: 0 };
+                
+                setTimeout(() => {
+                    this.bouncingEffect = null;
+                    defender.canShoot = true;
+                }, 10000);
 
             }, 3000);
         }

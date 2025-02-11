@@ -1,7 +1,7 @@
 import { Projectile } from './Projectile.js';
 
 export class Player {
-    constructor(game, x, y, isEnd = false){
+    constructor(game, x, y, isEnd = false, canShoot = true){
         this.game = game;
         this.width = 120;
         this.height = 190;
@@ -22,8 +22,15 @@ export class Player {
         this.powerupLimit = 10000;
         this.lives = 100;
         this.isEnd = isEnd;
+        this.canShoot = canShoot;
     }
-    update(key1, key2, deltaTime, isEnd = false){
+    update(key1, key2, deltaTime, isEnd = false, canShoot){
+        if (!canShoot) {
+            this.ammo = 0;
+            this.maxAmmo = 0;
+        }
+        else this.maxAmmo = 30;
+        
         if( this.game.keys.includes(key1)) this.speedY = -this.maxSpeed;
         else if( this.game.keys.includes(key2)) this.speedY = this.maxSpeed;
         else this.speedY = 0;
