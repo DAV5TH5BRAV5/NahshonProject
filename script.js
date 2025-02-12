@@ -96,6 +96,36 @@ function startGame() {
     canvas.width = 1500;
     canvas.height = 500;
     const game = new Game(canvas.width, canvas.height);
+        for (let i = 0; i < selectedCharacters.length; i++) {
+            const element = selectedCharacters[i];
+            if (element == 'player1') {
+                game['player' + (i + 1)].image = document.getElementById('eli');
+                game['player' + (i + 1)].width = 77;
+                game['player' + (i + 1)].height = 160;
+                game['player' + (i + 1)].frameInterval = 150;
+                game['player' + (i + 1)].id = 1;
+            }
+            else if (element == 'player2'){
+                game['player' + (i + 1)].image = document.getElementById('shai');
+                game['player' + (i + 1)].width = 100;
+                game['player' + (i + 1)].height = 190;
+                game['player' + (i + 1)].maxFrame = 5;
+                game['player' + (i + 1)].frameInterval = 125;
+                game['player' + (i + 1)].id = 2;
+            }
+            else if (element == 'player3'){
+                game['player' + (i + 1)].image = document.getElementById('player');
+                game['player' + (i + 1)].width = 120;
+                game['player' + (i + 1)].height = 190;
+                game['player' + (i + 1)].maxFrame = 0;
+            } else {
+                game['player' + (i + 1)].image = document.getElementById('player');
+                game['player' + (i + 1)].width = 120;
+                game['player' + (i + 1)].height = 190;
+                game['player' + (i + 1)].maxFrame = 0;
+            }
+        }
+
     game.gameTime = 0; 
     let lastTime = performance.now(); 
     //animation loops

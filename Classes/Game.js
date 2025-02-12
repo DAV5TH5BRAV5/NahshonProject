@@ -101,7 +101,17 @@ export class Game {
                 for (let i = 0; i < 10; i++) {
                     this.particles.push(new Particle(this, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
                 }
-                if (enemy.type == 'lucky') this.player1.enterPowerUp();
+                if (enemy.type == 'lucky'){
+                    if (this.player1.id == 2 && !this.player1.powerUp){
+                        this.player1.frameY = 2;
+                        this.player1.frameX = 0;
+                        this.player1.maxFrame = 9;
+                        this.player1.frameInterval = 70;
+                        this.player1.adjustWidth = 119;
+                        this.player1.adjustHeight = 29; 
+                    }
+                    this.player1.enterPowerUp();
+                } 
                 else if (this.gameTime < this.timeLimit) this.player1.score -= enemy.lives;
             }
             else if (this.checkCollision(this.player2, enemy)){
@@ -109,7 +119,18 @@ export class Game {
                 for (let i = 0; i < 10; i++) {
                     this.particles.push(new Particle(this, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
                 }
-                if (enemy.type == 'lucky') this.player2.enterPowerUp();
+                if (enemy.type == 'lucky'){
+                    if (this.player2.id == 2 && !this.player2.powerUp){
+                        this.player2.frameY = 2;
+                        this.player2.frameX = 0;
+                        this.player2.maxFrame = 9;
+                        this.player2.frameInterval = 70;
+                        this.player2.adjustWidth = 119;
+                        this.player2.adjustHeight = 29;             
+                    }
+                    this.player2.enterPowerUp();
+
+                } 
                 else if (this.gameTime < this.timeLimit) this.player2.score -= enemy.lives;
             }
 
