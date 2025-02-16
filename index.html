@@ -10,56 +10,176 @@
 <body>
 
     <!-- Characters -->
-    <img id="player" src="assets/tsuberi.png">
-    <img id="roei" src="assets/tsuberi.png">
-    <img id="yotam" src="assets/tsuberi.png">
+    <img id="player" src="assets/CharacterImages/tsuberi.png">
+    <img id="itay" src="assets/spritesheets/ItayWalk.png">
+    <img id="itayFly" src="assets/CharacterImages/ItayFly.png">
+    <img id="yotam" src="assets/spritesheets/YotamWalkFly.png">
     <img id="alex" src="assets/spritesheets/AlexWalk.png">
-    <img id="alexFly" src="assets/AlexFly.png">
-    <img id="tsuberi" src="assets/tsuberiFull.png">
+    <img id="alexFly" src="assets//CharacterImages/AlexFly.png">
+    <img id="tsuberi" src="assets/CharacterImages/tsuberiFull.png">
     <img id="eli" src="assets/spritesheets/EliWalkAttack.png">
     <img id="shai" src="assets/spritesheets/shaiWalkAttackUlt.png">
+    <img id="ron" src="assets/spritesheets/ronWalkAttack.png">
+    <img id="master" src="assets/spritesheets/masterWalkAttack.png">
 
     <!-- props -->
-    <img id="keva" src="assets/keva.png"> 
-    <img id="sonic" src="assets/sonic.png"> 
-    <img id="ptor" src="assets/ptor.jpeg"> 
-    <img id="sword" src="assets/sword.png"> 
-    <img id="shatz" src="assets/shatz.png"> 
+    <img id="keva" src="assets/Props/keva.png"> 
+    <img id="sonic" src="assets/Props/sonic.png"> 
+    <img id="sword" src="assets/Props/sword.png"> 
+    <img id="shatz" src="assets/Props/shatz.png"> 
+    <img id="soldierBoot" src="assets/Props/soldierBoot.png"> 
+    <img id="foodTicket" src="assets/Props/foodTicket.png"> 
 
     <!-- Environment -->
-    <img id="layer1" src="assets/layer1.png">
-    <img id="layer2" src="assets/layer2.png">
-    <img id="layer3" src="assets/layer3.png">
-    <img id="layer4" src="assets/layer4.png">
-    <img id="layer5" src="assets/adjusted_crack_133_left.png">
+    <img id="layer1" src="assets/Environment/layer1.png">
+    <img id="layer2" src="assets/Environment/layer2.png">
+    <img id="layer3" src="assets/Environment/layer3.png">
+    <img id="layer4" src="assets/Environment/layer4.png">
+    <img id="layer5" src="assets/Environment/adjusted_crack_133_left.png">
 
-    <h1>SELECT YOUR CHARACTERS</h1>
+    <h1 class="title">SELECT YOUR<br>CHARACTERS</h1>
     
     <div class="character-container">
-        <div class="character" onclick="selectCharacter(this, 'player1')">
-            <img src="assets/Eli.png" alt="Player 1">
-            <button class="select-btn">Select</button>
+        <div class="character" onclick="selectCharacter(this, 'Eli')">
+            <img src="assets/CharacterImages/Eli.png" alt="Eli">
+            <h2>אלי</h2>
+            <p>חוזק: נמוך - קשה לפגיעה</p>
+            <p>חולשה: נשק קטן - קשה לפגוע</p>
         </div>
-        <div class="character" onclick="selectCharacter(this, 'player2')">
-            <img src="assets/Shai2.png" alt="Player 2">
-            <button class="select-btn">Select</button>
+        <div class="character" onclick="selectCharacter(this, 'Shai')">
+            <img src="assets/CharacterImages/Shai2.png" alt="Shai">
+            <h2>שי</h2>
+            <p>חוזק: נשק ענק - קל לפגוע</p>
+            <p>חולשה: גבוה - קל לפגיעה</p>
         </div>
-        <div class="character" onclick="selectCharacter(this, 'player3')">
-            <img src="assets/tsuberi.png" alt="Player 3">
-            <button class="select-btn">Select</button>
+        <div class="character" onclick="selectCharacter(this, 'Ron')">
+            <img src="assets/CharacterImages/Ron.png" alt="Ron">
+            <h2>רון</h2>
+            <p>חוזק: חתיך אש</p>
+            <p>חולשה: נשק קטן - קשה לפגוע</p>
         </div>
-        <div class="character" onclick="selectCharacter(this, 'player4')">
-            <img src="assets/tsuberi.png" alt="Player 4">
-            <button class="select-btn">Select</button>
+        <div class="character" onclick="selectCharacter(this, 'Master')">
+            <img src="assets/CharacterImages/master.png" alt="Master">
+            <h2>הכרטיסן המלך</h2>
+            <p>חוזק: נשק גדול - קל לפגוע</p>
+            <p>חולשה: גבוה - קל לפגיעה</p>
         </div>
     </div>
-    
 
     <div class="buttons">
-        <button id="startGame" onclick="startAnim()">Start Game</button>
+        <button id="startGame" onclick = "startAnim()">Start Game</button>
         <button onclick="showInstructions()">How to Play</button>
     </div>
 
+    <!-- Instruction Modal -->
+    <div id="instruction-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeInstructions()">×</button>
+
+            <!-- Title Section -->
+            <h1 style="text-align: center;">צוברי נגד העולם</h1>
+
+            <!-- Section 1: Character Selection -->
+            <h2>בחירת שחקנים</h2>
+            <p>המשחק מתחיל בכך שכל שחקן בוחר שחקן. לכל דמות יש חוזקה וחולשה ייחודית המשפיעות על המשחק</p>
+
+            <!-- Character Descriptions -->
+            <div class="character-container">
+                <h3>אלי</h3>
+                <img src="assets/CharacterImages/Eli.png" alt="Eli">
+                <p><strong>חוזקה:</strong> נמוך - קשה לפגיעה, כלומר לאוייבים קשה לפגוע באלי והיריב יתקשה יותר בלפגוע בו</p>
+                <p><strong>חולשה:</strong> נשק קטן -קשה לפגוע באוייבים שונים וקשה יותר לפגוע בשחקן היריב</p>
+            </div>
+
+            <div class="character-container">
+                <h3>שי</h3>
+                <img src="assets/CharacterImages/Shai2.png" alt="Shai">
+                <p><strong>חוזקה:</strong> נשק ענק - קל לפגוע באוייבים וקל יותר לפגוע בשחקן היריב</p>
+                <p><strong>חולשה:</strong> גבוה - קל לפגיעה על ידי אוייבים וקל לשחקן היריב לפגוע בו</p>
+            </div>
+
+            <div class="character-container">
+                <h3>רון</h3>
+                <img src="assets/CharacterImages/Ron.png" alt="Ron">
+                <p><strong>חוזקה:</strong> חתיך אש - מהפנט את כולם מרוב יופיו</p>
+                <p><strong>חולשה:</strong> נשק קטן - קשה לפגוע באוייבים שונים או בשחקן היריב</p>
+            </div>
+
+            <div class="character-container">
+                <h3>הכרטיסן המלך</h3>
+                <img src="assets/CharacterImages/master.png" alt="The Ticket Master">
+                <p><strong>חוזקה:</strong> נשק גדול - קל לפגוע באוייבים שונים ובשחקן היריב</p>
+                <p><strong>חולשה:</strong> גבוה - קל לפגיעה על ידי אוייבים שונים ועל ידי השחקן היריב</p>
+            </div>
+
+            <img src="assets/Instructions And Events/sizeComparison.png" alt="Character size comparison">
+
+            <!-- Section 2: How to Play -->
+            <h2>אז איך משחקים?</h2>
+            <p>המשחק מתחיל בכך שהמסך נסדק באמצע, ומפריד בין השחקנים ולא מאפשר להם לתקוף אחד את השני. שחקן 1 נמצא בצד שמאל של המסך, ושחקן 2 בצד ימין</p>
+            <br>
+            <h3>מקשים בסיסיים:</h3>
+            <ul>
+                <li>שחקן 1: זז למעלה (W), זז למטה (S), לירות (E)</li>
+                <li>שחקן 2: זז למעלה (חץ למעלה), זז למטה (חץ למטה), לירות (ברווח)</li>
+            </ul>
+            <br>
+            <h3>המשחק הראשון</h3>
+            <p>המשחק מחולק ל-2 משחקים שונים. הראשון נמשך 120 שניות. בכל שנייה, אויב חדש מופיע על המסך ורץ/ עף לכיוון כל אחד מהשחקנים (האויב יכול להיות שונה לכל שחקן: יפורט בהמשך). שחקנים צוברים נקודות על ידי הריגת אויבים. אם שחקן מתחמק מאויב, הוא לא יקבל נקודות אך גם לא יאבד נקודות אלא אם כן נפגע על ידי האויב (האויב הגיע אל מיקומו של השחקן).</p>
+            <img src="assets/Instructions And Events/fullFirstGameScreen.png" alt="Full game screen">
+
+            <p>לכל שחקן יש תחמושת ומספר מקסימאלי של כדורים, המוצגים עם מלבנים בפינה השמאלית העליונה של מסך השחקן (ראה תמונה).</p>
+            <img src="assets/Instructions And Events/ammoIndicator.png" alt="Ammo indicator">
+
+            <p>אם אויב יתנגש בך, תאבד נקודות השוות לכמות החיים שנותרה לאויב (יפורט בחלק הבא).</p>
+            <br>
+
+            <!-- Enemy Descriptions -->
+            <h3>אויבים:</h3>
+
+            <h4>איתי</h4>
+            <p>איתי יכול להיות בשני מצבים: הליכה (על פני הקרקע) או ספיידרמן (מעל הקרקע). יש לו 2 חיים (כלומר לוקח 2 יריות כדי להיהרג) והוא נע במהירות בינונית, אך יכול להשתנות ברנדומאליות למהירות גבוהה יותר או נמוכה יותר. מופיע 50% מהזמן ונותן 2 נקודות כאשר נהרג.</p>
+            <img src="assets/Instructions And Events/itayWalkingAndFlying.png" alt="Itay Walking">
+
+            <h4>אלכס</h4>
+            <p>אלכס יכול להיות בשני מצבים: הליכה (על פני הקרקע) או סופרמן (מעל הקרקע). יש לו 4 חיים (כלומר לוקח 4 יריות כדי להיהרג) והוא נע במהירות בינונית, אך יכול להשתנות ברנדומאליות למהירות גבוהה יותר או נמוכה יותר. מופיע 38% מהזמן ונותן 4 נקודות כאשר נהרג.</p>
+            <img src="assets/Instructions And Events/alexWalkingAndFlying.png" alt="Alex Walking">
+
+            <h4>יותם</h4>
+            <p>יותם יכול להיות בשני מצבים: הליכה או תעופה. יש לו 3 חיים (כלומר לוקח 3 יריות כדי להיהרג) והוא נע במהירות בינונית, אך יכול להשתנות ברנדומאליות למהירות גבוהה יותר או נמוכה יותר. מופיע 10% מהזמן. יותם הוא אויב "המזל": כשהוא נהרג הוא נותן 15 נקודות. אך אם הוא מתנגש עם השחקן, השחקן נכנס למצב "כוח מיוחד" :במצב "כוח מיוחד" התחמושת של השחקן הופכת לצהובה והתחמושת המקסימלית שלו הופכת ל-50 כעת. התחמושת מתחדשת במהירויות מאוד מהירה וגם השחקן יורה פי שניים כדורים לכל ירייה (2 כדורים במקום אחד). המצב נמשך 10 שניות.</p>
+            <img src="assets/Instructions And Events/yotamWalkingAndFlying.png" alt="Yotam Walking">
+
+            <h4>צוברי</h4>
+            <p>צוברי יכול להיות רק במצב הליכה. יש לו 50 חיים (כלומר לוקח 50 יריות) והוא נע לאט מאוד. הוא יורה "תפסי קבע" לעבר השחקן, ומאלץ את השחקן להיכנס ל"קבע". כל פגיעה של תופס "קבע" מפחיתה את הניקוד של השחקן ב-5 נקודות. מופיע 2% מהזמן ונותן 50 נקודות כשהוא נהרג.</p>
+            <img src="assets/Instructions And Events/tsuberiWalk.png" alt="Tsuberi Walking">
+
+            <!-- Section 3: Final Game -->
+            <h2>המשחק הסופי</h2>
+            <p>אמרנו שהמשחק מחולק ל-2 חלקים. המשחק הראשון וכעט המשחק האחרון: לאחר 120 שניות, הסדק במסך נעלם, והשחקנים עוברים למשחק האחרון. שחקנים מתחילים עם 100 חיים ומקבלים/מפסידים 1 חיים על כל 2 נקודות שהיו להם במשחק הראשון. מינימום החיים הוא 10.</p>
+            <img src="assets/Instructions And Events/healthIndicator.png" alt="Health indicator">
+
+            <h3>אירועים מיוחדים</h3>
+            <p>כל 20 שניות מתחיל אירוע מיוחד. גבול המסך מואר בכחול. השחקן הראשון שלחץ על הכפתור שלו מפעיל את האירוע על השחקן היריב (השני). הכפתור של שחקן 1 הוא "G", והכפתור של שחקן 2 הוא "H".</p>
+            <br>
+
+            <h4>אירוע ראשון: טנק צוברי</h4>
+            <p> 10 יריות אקראיות נורות מהטנק של צוברי לאזור השחקן המפסיד. כל זריקה שפוגעת בשחקן מפחיתה את החיים שלו ב-10. לשחקן ינתן פרק זמן מאוד קטן להתחמק מהיריות של צוברי</p>
+            <img src="assets/Instructions And Events/tsuberiTank.png" alt="Tsuberi Tank">
+
+            <h4>אירוע שני: צוברי הצדעה</h4>
+            <p>השחקן המפסיד מוגבל בתנועותיו בשני מלבנים אדומים למשך 10 שניות בגלל שלא הצדיעה נכון במסדר של צוברי</p>
+            <img src="assets/Instructions And Events/tsuberiSalute.png" alt="Tsuberi Salute">
+
+            <h4>מטוס צוברי</h4>
+            <p>השחקן המפסיד מתחיל לקפוץ ללא שליטה שמאלה וימינה למשך 10 שניות ואינו יכול לירות או לבצע פעולות כלשהן מכיוון שצוברי שם עליו עין</p>
+            <img src="assets/Instructions And Events/tsuberiPlane.png" alt="Tsuberi Plane">
+
+            <!-- End -->
+            <h2>סוף המשחק</h2>
+            <p>השחקן שמאבד את כל החיים שלו מפסיד, והשחקן הנותר הוא המנצח.</p>
+        </div>
+    </div>
+    
     <canvas id="canvas1" style="display: none;"></canvas>
 
     <script type="module" src="script.js"></script>

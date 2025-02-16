@@ -3,27 +3,57 @@ import { Game } from './Classes/Game.js';
 let selectedCharacters = [];
 let gameStarted = false;
 
+let firstCharacter = null;
+let secondCharacter = null;
+
 function selectCharacter(element, character) {
-    
-    // If selected then remove
-    if (selectedCharacters.includes(character)) {
-        selectedCharacters = selectedCharacters.filter(c => c !== character);
+    if (firstCharacter === character) {
+        firstCharacter = null;
         element.classList.remove('selected');
+        element.removeAttribute('data-role');
     } 
-    // Max 2 selections
-    else if (selectedCharacters.length < 2) {
-        selectedCharacters.push(character);
+    else if (secondCharacter === character) {
+        secondCharacter = null;
+        element.classList.remove('selected');
+        element.removeAttribute('data-role'); 
+    } 
+    else if (firstCharacter === null) {
+        firstCharacter = character;
         element.classList.add('selected');
+        element.setAttribute('data-role', 'First Character');
+    } 
+    else if (secondCharacter === null) {
+        secondCharacter = character;
+        element.classList.add('selected');
+        element.setAttribute('data-role', 'Second Character');
     }
+
+    updateCharacterRoles();
 }
 
+function updateCharacterRoles() {
+    document.querySelectorAll('.character').forEach(char => {
+        const roleText = char.getAttribute('data-role');
+        char.querySelector('.role-info')?.remove();
+
+        if (roleText) {
+            const roleInfo = document.createElement('p');
+            roleInfo.classList.add('role-info');
+            roleInfo.textContent = roleText;
+            char.appendChild(roleInfo);
+        }
+    });
+}
+
+
+
 function startAnim() {
-    if (selectedCharacters.length !== 2) {  
+    if (firstCharacter == null || secondCharacter == null) {  
         alert("Please select 2 characters first!");
         return;
     }
+    selectedCharacters = [firstCharacter,secondCharacter];
 
-    // Hide character selection and show game canvas
     document.querySelector('.character-container').style.display = 'none';
     document.querySelector('.buttons').style.display = 'none';
 
@@ -98,31 +128,47 @@ function startGame() {
     const game = new Game(canvas.width, canvas.height);
         for (let i = 0; i < selectedCharacters.length; i++) {
             const element = selectedCharacters[i];
-            if (element == 'player1') {
+            if (element == 'Eli') {
                 game['player' + (i + 1)].image = document.getElementById('eli');
                 game['player' + (i + 1)].width = 77;
                 game['player' + (i + 1)].height = 160;
                 game['player' + (i + 1)].frameInterval = 150;
                 game['player' + (i + 1)].id = 1;
+                game['player' + (i + 1)].shootingSound = new Audio('./assets/sounds/swordSound.mp3');
+                game['player' + (i + 1)].winningImage.src = './assets/winningImages/winningImageEli.png';
+
             }
-            else if (element == 'player2'){
+            else if (element == 'Shai'){
                 game['player' + (i + 1)].image = document.getElementById('shai');
                 game['player' + (i + 1)].width = 100;
                 game['player' + (i + 1)].height = 190;
                 game['player' + (i + 1)].maxFrame = 5;
                 game['player' + (i + 1)].frameInterval = 125;
                 game['player' + (i + 1)].id = 2;
+                game['player' + (i + 1)].shootingSound = new Audio('./assets/sounds/shatzSound.m4a');
+                game['player' + (i + 1)].winningImage.src = './assets/winningImages/winningImageShai.png';
+                game['player' + (i + 1)].winningSound = new Audio('./assets/sounds/winningSoundShai.mp3');
+
             }
-            else if (element == 'player3'){
-                game['player' + (i + 1)].image = document.getElementById('player');
-                game['player' + (i + 1)].width = 120;
-                game['player' + (i + 1)].height = 190;
-                game['player' + (i + 1)].maxFrame = 0;
+            else if (element == 'Ron'){
+                game['player' + (i + 1)].image = document.getElementById('ron');
+                game['player' + (i + 1)].width = 94;
+                game['player' + (i + 1)].height = 180;
+                game['player' + (i + 1)].maxFrame = 4;
+                game['player' + (i + 1)].frameInterval = 125;
+                game['player' + (i + 1)].id = 3;
+                game['player' + (i + 1)].shootingSound = new Audio('./assets/sounds/bootSound.mp3');
+                game['player' + (i + 1)].winningImage.src = './assets/winningImages/winningImageRon.png';
+
             } else {
-                game['player' + (i + 1)].image = document.getElementById('player');
-                game['player' + (i + 1)].width = 120;
-                game['player' + (i + 1)].height = 190;
-                game['player' + (i + 1)].maxFrame = 0;
+                game['player' + (i + 1)].image = document.getElementById('master');
+                game['player' + (i + 1)].width = 114;
+                game['player' + (i + 1)].height = 185;
+                game['player' + (i + 1)].maxFrame = 9;
+                game['player' + (i + 1)].frameInterval = 100;
+                game['player' + (i + 1)].id = 4;
+                game['player' + (i + 1)].shootingSound = new Audio('./assets/sounds/cardThrowSound.mp3');
+                game['player' + (i + 1)].winningImage.src = './assets/winningImages/winningImageCard.png';
             }
         }
 
@@ -200,8 +246,8 @@ function startReverseAnim(game, ctx, canvas, lastTime) {
 }
 
 function endGame(game, ctx, canvas, lastTime){
-    game.player1.lives += Math.floor(game.player1.lives * (game.player1.score / 200));
-    game.player2.lives += Math.floor(game.player2.lives * game.player2.score / 200);
+    game.player1.lives += Math.floor((game.player1.score / 2));
+    game.player2.lives += Math.floor((game.player2.score / 2));
     if (game.player1.lives < 10) game.player1.lives = 10;
     if (game.player2.lives < 10) game.player2.lives = 10;
     game.player1.isEnd = true;
@@ -209,6 +255,7 @@ function endGame(game, ctx, canvas, lastTime){
     game.background.isBeginAnim = true;
     game.player1.projectiles = [];
     game.player2.projectiles = [];
+    game.particles = [];
 
     function animate(timeStamp){
         const deltaTime = timeStamp - lastTime;
@@ -222,10 +269,28 @@ function endGame(game, ctx, canvas, lastTime){
 }
 
 function showInstructions() {
-    alert("Use arrow keys to move your character and spacebar to jump. Avoid obstacles and reach the finish line!");
+    const modal = document.getElementById('instruction-modal');
+    modal.style.visibility = 'visible'; // Ensure the modal is interactable
+    modal.style.opacity = '1'; // Ensure full opacity
+    modal.classList.add('show'); // Trigger slide-up animation
+}
+
+function closeInstructions() {
+    const modal = document.getElementById('instruction-modal');
+
+    // Trigger slide-down animation
+    modal.classList.remove('show');
+
+    // Wait for the transition to finish, then hide the modal
+    modal.addEventListener('transitionend', function handleTransitionEnd() {
+        modal.style.visibility = 'hidden'; // Prevent interaction
+        modal.style.opacity = '0'; // Reset opacity for next time
+        modal.removeEventListener('transitionend', handleTransitionEnd); // Clean up event listener
+    });
 }
 
 window.selectCharacter = selectCharacter;
 window.startAnim = startAnim;
 window.startGame = startGame;
 window.showInstructions = showInstructions;
+window.closeInstructions = closeInstructions;

@@ -20,15 +20,20 @@ export class Projectile {
                 this.height = 25;
                 
             }
-            else if (this.id ==2){
+            else if (this.id == 2){
                 this.image = document.getElementById('shatz');
                 this.width = 100;
                 this.height = 100;
             }
+            else if (this.id == 3){
+                this.image = document.getElementById('soldierBoot');
+                this.width = 30;
+                this.height = 29;
+            }
             else {
-                this.image = document.getElementById('ptor');
-                this.width = 70;
-                this.height = 25;  
+                this.image = document.getElementById('foodTicket');
+                this.width = 69;
+                this.height = 45;  
             }
 
         }
@@ -59,8 +64,6 @@ export class Projectile {
                 if (this.x < this.game.width * 0.58) this.markedForDeletion = true;  
             }
         }
-
-
     }
     draw(context, speed = this.speed, shouldSwitch = this.shouldSwitch){
         if (speed < 0 || !shouldSwitch) context.drawImage(this.image, this.x, this.y);

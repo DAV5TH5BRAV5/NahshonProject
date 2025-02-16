@@ -1,7 +1,7 @@
 import { InputHandler } from './InputHandler.js';
 import { Particle } from './Particle.js';
 import { Player } from './Player.js';
-import { Roei } from './Roei.js';
+import { Itay } from './Itay.js';
 import { Alex } from './Alex.js';
 import { Yotam } from './Yotam.js';
 import { Tsuberi } from './Tsuberi.js';
@@ -35,9 +35,9 @@ export class Game {
         this.showScreenImage = false;
         this.targets = [];
         this.targetImage = new Image();
-        this.targetImage.src = './assets/sonic.png';
+        this.targetImage.src = './assets/Props/tankTarget.png';
         this.screenImage = new Image();
-        this.screenImage.src = './assets/tsuberiTank.png';
+        this.screenImage.src = './assets/Instructions And Events/tsuberiTank.png';
         this.eventGlowTimer = 0;
 
         //event 2
@@ -45,6 +45,7 @@ export class Game {
 
         //event 3
         this.bouncingEffect = null;
+
     }
     update(deltaTime){
         if (!this.gameOver) this.gameTime += deltaTime;
@@ -72,11 +73,21 @@ export class Game {
         if (this.player1.isEnd){
             this.player1.projectiles.forEach(projectile => {
                 if (this.checkCollision(projectile, this.player2)){
+                    this.player2.hit();
                     this.player2.lives--;
                     projectile.markedForDeletion = true;
                     this.particles.push(new Particle(this, this.player2.x + this.player2.width * 0.5, this.player2.y + this.player2.height * 0.5));
                     if (this.player2.lives <= 0){
-                        // to be added 
+                        this.player1.canShoot = false;
+                        this.player2.canShoot = false;
+                        this.screenImage.src = this.player1.winningImage.src;
+                        this.showScreenImage = true;
+                        this.gameOver = true;
+
+                        if (!this.player1.winningSoundPlayed) {
+                            this.player1.winningSound.play();
+                            this.player1.winningSoundPlayed = true;
+                        }
                     }
                 }
             });
@@ -84,11 +95,20 @@ export class Game {
         if (this.player2.isEnd){
             this.player2.projectiles.forEach(projectile => {
                 if (this.checkCollision(projectile, this.player1)){
+                    this.player1.hit();
                     this.player1.lives--;
                     projectile.markedForDeletion = true;
                     this.particles.push(new Particle(this, this.player1.x + this.player1.width * 0.5, this.player1.y + this.player1.height * 0.5));
                     if (this.player1.lives <= 0){
-                        // to be added 
+                        this.player1.canShoot = false;
+                        this.player2.canShoot = false;
+                        this.screenImage.src = this.player2.winningImage.src;
+                        this.showScreenImage = true;
+                        this.gameOver = true;
+                        if (!this.player2.winningSoundPlayed) {
+                            this.player2.winningSound.play();
+                            this.player2.winningSoundPlayed = true;
+                        }
                     }
                 } 
             });
@@ -108,7 +128,9 @@ export class Game {
                         this.player1.maxFrame = 9;
                         this.player1.frameInterval = 70;
                         this.player1.adjustWidth = 119;
-                        this.player1.adjustHeight = 29; 
+                        this.player1.adjustHeight = 29;
+                        let shootingSound = new Audio('./assets/sounds/shaiClashYotam.m4a');
+                        shootingSound.play();
                     }
                     this.player1.enterPowerUp();
                 } 
@@ -126,7 +148,9 @@ export class Game {
                         this.player2.maxFrame = 9;
                         this.player2.frameInterval = 70;
                         this.player2.adjustWidth = 119;
-                        this.player2.adjustHeight = 29;             
+                        this.player2.adjustHeight = 29;
+                        let shootingSound = new Audio('./assets/sounds/shaiClashYotam.m4a');
+                        shootingSound.play();
                     }
                     this.player2.enterPowerUp();
 
@@ -140,6 +164,7 @@ export class Game {
                     enemy.lives--;
                     projectile.markedForDeletion = true;
                     this.particles.push(new Particle(this, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
+                    enemy.hit();
                     if (enemy.lives <= 0){
                         for (let i = 0; i < 10; i++) {
                             this.particles.push(new Particle(this, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
@@ -156,6 +181,7 @@ export class Game {
                     if (this.checkCollision(projectile, enemy)){
                         enemy.lives--;
                         projectile.markedForDeletion = true;
+                        enemy.hit();
                         if (enemy.lives <= 0){
                             for (let i = 0; i < 5; i++) {
                                 this.particles.push(new Particle(this, enemy.x + enemy.width * 0.5, enemy.y + enemy.height * 0.5));
@@ -265,17 +291,18 @@ export class Game {
             context.fillRect(player.x - 20, minY - 5, player.width + 40, 5);
             context.fillRect(player.x - 20, maxY, player.width + 40, 5);
         }
+
     }
     addEnemy(direction){
         const randomize = Math.random();
         if (randomize < 0.5) {
             if (direction === 1){
-                this.enemies.push(new Roei(this));
+                this.enemies.push(new Itay(this));
             }
             else {
-                let tempRoei = new Roei(this);
-                tempRoei.speedX = tempRoei.speedX * -1;
-                this.enemies.push(tempRoei);
+                let tempItay = new Itay(this);
+                tempItay.speedX = tempItay.speedX * -1;
+                this.enemies.push(tempItay);
             }
         }
         else if (randomize < 0.6){
@@ -322,22 +349,24 @@ export class Game {
 
     //events
     activateEvent() {
-        this.eventActive = true;
-        this.eventGlowTimer = 0;
-        this.eventWinner = null;
-        document.body.classList.add('event-glow');
-        this.input.enableEventListeners();
-
-        setTimeout(() => {
-            this.eventActive = false;
-            document.body.classList.remove('event-glow');
-            this.nextEventTime = performance.now() + this.eventCooldown;
-        }, 5000);
+        if (!this.gameOver){
+            this.eventActive = true;
+            this.eventGlowTimer = 0;
+            this.eventWinner = null;
+            document.body.classList.add('event-glow');
+            this.input.enableEventListeners();
+    
+            setTimeout(() => {
+                this.eventActive = false;
+                document.body.classList.remove('event-glow');
+                this.nextEventTime = performance.now() + this.eventCooldown;
+            }, 5000);
+        }
     }
 
     triggerAttack(attacker, defender) {
         if (this.eventActive && !this.eventWinner) {
-            this.screenImage.src = './assets/tsuberiTank.png';
+            this.screenImage.src = './assets/Instructions And Events/tsuberiTank.png';
             this.eventWinner = attacker;
             this.showScreenImage = true;
             this.player1.canShoot = false;
@@ -380,7 +409,7 @@ export class Game {
 
     triggerRestriction(attacker, defender) {
         if (this.eventActive && !this.eventWinner) {
-            this.screenImage.src = './assets/tsuberiSalute.png';
+            this.screenImage.src = './assets/Instructions And Events/tsuberiSalute.png';
             this.eventWinner = attacker;
             this.showScreenImage = true;
             this.player1.canShoot = false;
@@ -408,7 +437,7 @@ export class Game {
 
     triggerBouncing(attacker, defender) {
         if (this.eventActive && !this.eventWinner) {
-            this.screenImage.src = './assets/tsuberiPlane.png';
+            this.screenImage.src = './assets/Instructions And Events/tsuberiPlane.png';
             this.eventWinner = attacker;
             this.showScreenImage = true;
             this.player1.canShoot = false;
