@@ -50,6 +50,8 @@ export class Player {
         this.winningSoundPlayed = false; // Make sure its only played once
         this.winningSound = new Audio('./assets/sounds/winningSoundGeneral.mp3');
 
+        //controller Vibrate Allower
+        this.allowControllerVibrate = true;
     }
     update(key1, key2, deltaTime, isEnd = false, canShoot){
         if (!canShoot) {
@@ -223,6 +225,7 @@ export class Player {
     }
     shootTop(speed, isEnd = false){
         if (this.ammo > 0 && speed > 0){
+            this.allowControllerVibrate = true;
             if (this.id == 2 || this.id == 4) this.projectiles.push(new Projectile(this.game, this.x + 80, this.y + 30, speed, false, isEnd, this.id, false));
             else this.projectiles.push(new Projectile(this.game, this.x + 80, this.y + 30, speed, false, isEnd, this.id));
             this.ammo--;
@@ -311,6 +314,7 @@ export class Player {
                 };
             }
         }
+        else if (this.ammo <= 0) this.allowControllerVibrate = false;
         if (this.powerUp) this.shootBottom(speed);
     }
     shootBottom(speed, isEnd = false){

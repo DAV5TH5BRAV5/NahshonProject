@@ -93,6 +93,7 @@ export class Game {
                 this.showScreenImage = true;
                 this.lastGameOver = true;
                 if (!this.player1.winningSoundPlayed) {
+                    this.eventSound.pause();
                     this.player1.winningSound.play();
                     this.player1.winningSoundPlayed = true;
                 }
@@ -114,6 +115,7 @@ export class Game {
                 this.showScreenImage = true;
                 this.lastGameOver = true;
                 if (!this.player2.winningSoundPlayed) {
+                    this.eventSound.pause();
                     this.player2.winningSound.play();
                     this.player2.winningSoundPlayed = true;
                 }
