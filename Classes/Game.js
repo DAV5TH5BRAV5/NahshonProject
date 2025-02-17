@@ -24,7 +24,7 @@ export class Game {
         this.enemyInterval = 1000;
         this.gameOver = false;
         this.gameTime = 0;
-        this.timeLimit = 10000;
+        this.timeLimit = 120000;
         this.speed = 1;
 
         //event1
