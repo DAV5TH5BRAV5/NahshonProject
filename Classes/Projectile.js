@@ -57,7 +57,7 @@ export class Projectile {
         else {
             if (this.speed > 0){
                 this.x += this.speed;
-                if (this.x > this.game.width * 0.42) this.markedForDeletion = true;
+                if (this.x > this.game.width * 0.38) this.markedForDeletion = true;
             }
             else {
                 this.x += this.speed;

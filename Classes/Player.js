@@ -19,7 +19,7 @@ export class Player {
         this.powerUp = false;
         this.powerUpTimer = 0;
         this.powerupLimit = 10000;
-        this.lives = 0;
+        this.lives = 100;
         this.isEnd = isEnd;
         this.canShoot = canShoot;
         this.tempAmmo = 0;
@@ -49,6 +49,7 @@ export class Player {
         this.winningImage.src = './assets/winningImages/winningImageEli.png';
         this.winningSoundPlayed = false; // Make sure its only played once
         this.winningSound = new Audio('./assets/sounds/winningSoundGeneral.mp3');
+
     }
     update(key1, key2, deltaTime, isEnd = false, canShoot){
         if (!canShoot) {

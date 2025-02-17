@@ -64,12 +64,12 @@ function startAnim() {
     gameStarted = true; 
 
     const game = new Game(canvas.width, canvas.height);
-    setTimeout(startGame, 6050);
+    setTimeout(startGame, 3025);
 
     const slices = [];
     const numSlices = 20;
     const batchSize = 2;
-    const waitTime = 1000; 
+    const waitTime = 500; 
 
     let step = 0;
     const middleIndex = Math.floor(numSlices / 2);
@@ -188,16 +188,15 @@ function startGame() {
 }
 
 function startReverseAnim(game, ctx, canvas, lastTime) {
-    setTimeout(endGame, 6250, game, ctx, canvas, lastTime);
+    setTimeout(endGame, 3325, game, ctx, canvas, lastTime);
 
     canvas.width = 1500;
     canvas.height = 500;
 
     const slices = [];
     const numSlices = 20; // Total slices
-    const batchSize = 4; // Number of slices removed per step (2 from top, 2 from bottom)
     const quickTime = 625; // 0.625 seconds
-    const waitTime = 1000; // 1 second
+    const waitTime = 500; // 1 second
 
     for (let i = 1; i <= numSlices; i++) {
         const img = new Image();
@@ -207,8 +206,11 @@ function startReverseAnim(game, ctx, canvas, lastTime) {
 
     let topIndex = 0; 
     let bottomIndex = numSlices - 1; 
+    const crackSoundReverse = new Audio("./assets/sounds/crackReverse.mp3"); 
+    crackSoundReverse.volume = 0.7; // Adjust volume
 
     function drawSlices() {
+        if (crackSoundReverse.ended) return;
         game.background.draw(ctx, true);
 
         for (let i = 0; i < numSlices; i++) {
@@ -241,6 +243,8 @@ function startReverseAnim(game, ctx, canvas, lastTime) {
     slices[numSlices - 1].onload = function () {
         canvas.width = 1500;
         canvas.height = slices[0].height * numSlices;
+
+        crackSoundReverse.play();
         drawSlices();
     };
 }

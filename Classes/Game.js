@@ -46,6 +46,13 @@ export class Game {
         //event 3
         this.bouncingEffect = null;
 
+        //event sound
+        this.eventSoundPlayed = false; // Make sure its only played once
+        this.eventSound = new Audio('./assets/sounds/winningSoundGeneral.mp3');
+
+        //handle last game is over
+        this.lastGameOver = false;
+
     }
     update(deltaTime){
         if (!this.gameOver) this.gameTime += deltaTime;
@@ -77,20 +84,19 @@ export class Game {
                     this.player2.lives--;
                     projectile.markedForDeletion = true;
                     this.particles.push(new Particle(this, this.player2.x + this.player2.width * 0.5, this.player2.y + this.player2.height * 0.5));
-                    if (this.player2.lives <= 0){
-                        this.player1.canShoot = false;
-                        this.player2.canShoot = false;
-                        this.screenImage.src = this.player1.winningImage.src;
-                        this.showScreenImage = true;
-                        this.gameOver = true;
-
-                        if (!this.player1.winningSoundPlayed) {
-                            this.player1.winningSound.play();
-                            this.player1.winningSoundPlayed = true;
-                        }
-                    }
                 }
             });
+            if (this.player2.lives <= 0){
+                this.player1.canShoot = false;
+                this.player2.canShoot = false;
+                this.screenImage.src = this.player1.winningImage.src;
+                this.showScreenImage = true;
+                this.lastGameOver = true;
+                if (!this.player1.winningSoundPlayed) {
+                    this.player1.winningSound.play();
+                    this.player1.winningSoundPlayed = true;
+                }
+            }
         }
         if (this.player2.isEnd){
             this.player2.projectiles.forEach(projectile => {
@@ -99,19 +105,19 @@ export class Game {
                     this.player1.lives--;
                     projectile.markedForDeletion = true;
                     this.particles.push(new Particle(this, this.player1.x + this.player1.width * 0.5, this.player1.y + this.player1.height * 0.5));
-                    if (this.player1.lives <= 0){
-                        this.player1.canShoot = false;
-                        this.player2.canShoot = false;
-                        this.screenImage.src = this.player2.winningImage.src;
-                        this.showScreenImage = true;
-                        this.gameOver = true;
-                        if (!this.player2.winningSoundPlayed) {
-                            this.player2.winningSound.play();
-                            this.player2.winningSoundPlayed = true;
-                        }
-                    }
                 } 
             });
+            if (this.player1.lives <= 0){
+                this.player1.canShoot = false;
+                this.player2.canShoot = false;
+                this.screenImage.src = this.player2.winningImage.src;
+                this.showScreenImage = true;
+                this.lastGameOver = true;
+                if (!this.player2.winningSoundPlayed) {
+                    this.player2.winningSound.play();
+                    this.player2.winningSoundPlayed = true;
+                }
+            }
         }
         else{
             this.enemies.forEach(enemy => {
@@ -349,7 +355,7 @@ export class Game {
 
     //events
     activateEvent() {
-        if (!this.gameOver){
+        if (!this.lastGameOver){
             this.eventActive = true;
             this.eventGlowTimer = 0;
             this.eventWinner = null;
@@ -373,12 +379,17 @@ export class Game {
             this.player2.canShoot = false;
             this.player1.projectiles = [];
             this.player2.projectiles = [];
+            if (!this.eventSoundPlayed){
+                this.eventSound = new Audio('./assets/sounds/tsuberiTankVoice.mp3');
+                this.eventSoundPlayed = true;
+                this.eventSound.play();
+            }
 
             setTimeout(() => {
                 this.showScreenImage = false;
                 this.player1.canShoot = true;
                 this.player2.canShoot = true;
-                
+                this.eventSoundPlayed = false;
                 this.targets = [];
                 for (let i = 0; i < 10; i++) {
                     if (attacker.x > 750){
@@ -416,12 +427,16 @@ export class Game {
             this.player2.canShoot = false;
             this.player1.projectiles = [];
             this.player2.projectiles = [];
-
+            if (!this.eventSoundPlayed){
+                this.eventSound = new Audio('./assets/sounds/tsuberiSaluteVoice.mp3');
+                this.eventSoundPlayed = true;
+                this.eventSound.play();
+            }
             setTimeout(() => {
                 this.showScreenImage = false;
                 this.player1.canShoot = true;
                 this.player2.canShoot = true;
-
+                this.eventSoundPlayed = false;
                 defender.y = this.height / 2 - defender.height / 2; // Center defender
                 const minY = defender.y - 75;
                 const maxY = defender.y + 75 + defender.height;
@@ -444,12 +459,16 @@ export class Game {
             this.player2.canShoot = false;
             this.player1.projectiles = [];
             this.player2.projectiles = [];
-
+            if (!this.eventSoundPlayed){
+                this.eventSound = new Audio('./assets/sounds/tsuberiPlaneVoice.mp3');
+                this.eventSoundPlayed = true;
+                this.eventSound.play();
+            }
             setTimeout(() => {
                 this.showScreenImage = false;
                 this.player1.canShoot = true;
                 this.player2.canShoot = true;
-
+                this.eventSoundPlayed = false;
                 defender.y = this.height / 2 - defender.height / 2;
                 defender.canShoot = false;
                 const initialY = defender.y;

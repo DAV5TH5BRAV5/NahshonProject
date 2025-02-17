@@ -60,8 +60,8 @@ export class InputHandler {
 
     handleEventTrigger = () => {
         if (this.game.eventActive && !this.game.eventWinner) {
-            let tempRand = Math.floor(Math.random() * 3);
             if (this.keys.eventTrigger1) {
+                let tempRand = Math.floor(Math.random() * 3);
                 if (tempRand === 0) {
                     this.game.triggerAttack(this.game.player1, this.game.player2);
                 } else if (tempRand === 1) {
@@ -70,6 +70,7 @@ export class InputHandler {
                     this.game.triggerBouncing(this.game.player1, this.game.player2);
                 }
             } else if (this.keys.eventTrigger2) {
+                let tempRand = Math.floor(Math.random() * 3);
                 if (tempRand === 0) {
                     this.game.triggerAttack(this.game.player2, this.game.player1);
                 } else if (tempRand === 1) {
