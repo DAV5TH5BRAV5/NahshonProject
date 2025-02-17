@@ -205,6 +205,7 @@ export class Game {
                 enemy.projectiles.forEach(projectile => {
                     if (projectile.speed < 0){
                         if (this.checkCollision(projectile, this.player1)){
+                            this.player1.hit();
                             this.player1.score -= 5;
                             projectile.markedForDeletion = true;
                             this.particles.push(new Particle(this, this.player1.x + this.player1.width * 0.5, this.player1.y + this.player1.height * 0.5));
@@ -212,6 +213,7 @@ export class Game {
                     }
                     else {
                         if (this.checkCollision(projectile, this.player2)){
+                            this.player2.hit();
                             this.player2.score -= 5;
                             projectile.markedForDeletion = true;
                             this.particles.push(new Particle(this, this.player2.x + this.player2.width * 0.5, this.player2.y + this.player2.height * 0.5));
