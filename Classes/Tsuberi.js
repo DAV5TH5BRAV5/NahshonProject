@@ -45,8 +45,6 @@ export class Tsuberi extends Enemy {
     }
     draw(context){
         context.drawImage(this.image, this.x, this.y);
-
-        
         this.projectiles.forEach(projectile =>{
             projectile.draw(context);
         });
