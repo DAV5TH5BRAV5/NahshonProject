@@ -44,16 +44,12 @@ export class Tsuberi extends Enemy {
         
     }
     draw(context){
-        context.strokeRect(this.x, this.y, this.width, this.height);
         context.drawImage(this.image, this.x, this.y);
-        context.fillStyle = 'black';
-        context.font = '20px Helvetica';
-        context.fillText(this.lives, this.x, this.y);
+
         
         this.projectiles.forEach(projectile =>{
             projectile.draw(context);
         });
-        context.strokeRect(this.x, this.y, this.width, this.height);
         context.drawImage(this.image, this.x, this.y);
     }
 }
