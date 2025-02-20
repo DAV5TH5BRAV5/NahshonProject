@@ -250,8 +250,8 @@ function startReverseAnim(game, ctx, canvas, lastTime) {
 }
 
 function endGame(game, ctx, canvas, lastTime){
-    game.player1.lives += Math.floor((game.player1.score / 2));
-    game.player2.lives += Math.floor((game.player2.score / 2));
+    game.player1.lives += Math.floor((game.player1.score / 10));
+    game.player2.lives += Math.floor((game.player2.score / 10));
     if (game.player1.lives < 10) game.player1.lives = 10;
     if (game.player2.lives < 10) game.player2.lives = 10;
     game.player1.isEnd = true;

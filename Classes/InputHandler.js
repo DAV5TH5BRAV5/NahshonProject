@@ -10,18 +10,24 @@ export class InputHandler {
 
         this.lastShotTimePlayer1 = 0;
         this.lastShotTimePlayer2 = 0;
-        this.shootCooldown = 100;  // 100ms cooldown
+        this.shootCooldown = 100; // 100ms cooldown
 
-        // Gamepad indexes for each player
         this.player1GamepadIndex = null;
         this.player2GamepadIndex = null;
 
         window.addEventListener('gamepadconnected', (event) => {
             console.log(`Gamepad connected at index ${event.gamepad.index}: ${event.gamepad.id}`);
+            
+            const isWired = event.gamepad.id.toLowerCase().includes("usb") || event.gamepad.id.toLowerCase().includes("wired");
+            
             if (this.player1GamepadIndex === null) {
                 this.player1GamepadIndex = event.gamepad.index;
             } else if (this.player2GamepadIndex === null) {
                 this.player2GamepadIndex = event.gamepad.index;
+            } else if (isWired) {
+                // Prefer wired controllers over wireless ones
+                this.player1GamepadIndex = event.gamepad.index;
+                this.player2GamepadIndex = null; // Reset player 2 so next wired controller takes over
             }
         });
 
@@ -34,8 +40,8 @@ export class InputHandler {
             }
         });
 
-        this.updateGamepads(); // Start checking for gamepad inputs
-
+        this.updateGamepads();
+    
         // Keyboard event listeners remain intact
         window.addEventListener('keydown', e => {
             if( ( (e.key === 'ArrowUp') || 
