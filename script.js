@@ -9,7 +9,7 @@ let secondCharacter = null;
 function selectCharacter(element, character) {
     if (firstCharacter === character) {
         firstCharacter = null;
-        element.classList.remove('selected');
+        element.classList.remove('selected');//make it better
         element.removeAttribute('data-role');
     } 
     else if (secondCharacter === character) {

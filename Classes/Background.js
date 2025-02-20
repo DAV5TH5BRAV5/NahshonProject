@@ -11,33 +11,40 @@ export class Background {
         this.image5 = document.getElementById('layer5');
 
         //layer player 1
-        this.layer1 = new Layer(this.game, this.image1, 0.2, 0);
-        this.layer2 = new Layer(this.game, this.image2, 0.4, 0);
-        this.layer3 = new Layer(this.game, this.image3, 1, 0);
-        this.layer4 = new Layer(this.game, this.image4, 1.5, 0);
+        this.layer1 = new Layer(this.game, this.image1, 0.2, 0); // first layer is slowest
+        this.layer2 = new Layer(this.game, this.image2, 0.4, 0); // second layer is slow
+        this.layer3 = new Layer(this.game, this.image3, 1, 0); // third layer is fast
+        this.layer4 = new Layer(this.game, this.image4, 1.5, 0); // fourth layer is fastest
 
         //layer player 2
-        this.layer6 = new Layer(this.game, this.image1, -0.2, 0);
-        this.layer7 = new Layer(this.game, this.image2, -0.4, 0);
-        this.layer8 = new Layer(this.game, this.image3, -1, 0);
-        this.layer9 = new Layer(this.game, this.image4, -1.5, 0);
+        this.layer6 = new Layer(this.game, this.image1, -0.2, 0); // first layer is slowest
+        this.layer7 = new Layer(this.game, this.image2, -0.4, 0); // second layer is slow
+        this.layer8 = new Layer(this.game, this.image3, -1, 0); // third layer is fast
+        this.layer9 = new Layer(this.game, this.image4, -1.5, 0); // fourth layer is fastest
 
         //layer crack
-        this.layer5 = new Layer(this.game, this.image5, 0, 0);
+        this.layer5 = new Layer(this.game, this.image5, 0, 0); // crack layer doesn't move
 
-        this.layers = [this.layer1, this.layer2, this.layer3, this.layer4, this.layer6, this.layer7, this.layer8, this.layer9, this.layer5];
+        this.layers = [this.layer1,
+                        this.layer2,
+                         this.layer3,
+                          this.layer4,
+                           this.layer6,
+                            this.layer7,
+                             this.layer8,
+                              this.layer9,
+                               this.layer5];
     }
     update(){
         this.layers.forEach(layer => layer.update());
     }
     draw(context, isBeginAnim){
-        if (!isBeginAnim){
-            for (let index = 0; index < this.layers.length; index++) {
-                const layer = this.layers[index];
-                if (layer.speedModifier < 0){
-                    layer.draw(context, 2); 
+        if (!isBeginAnim){ // as long as we are not in an animation
+            this.layers.forEach(layer => {
+                if (layer.speedModifier < 0) {
+                    layer.draw(context, 2);
                 }
-            }
+            });            
             this.layers.forEach(layer => {
                 context.save(); // Save original state
         
@@ -57,26 +64,15 @@ export class Background {
                     layer.draw(context, 1);
                 }
                 context.restore(); // Reset clipping for next object
-                this.layers[8].draw(context, 0);
+                this.layers[8].draw(context, 0); // lastly draw the crack
     
             });  
         }
-        else {
+        else { // if we are in the end game draw the image only once without crack
             for (let index = 0; index < 4; index++) {
                 const layer = this.layers[index];
                 layer.draw(context, 1); 
             } 
         }
-
-
-        /*for (let index = 0; index < this.layers.length; index++) {
-            const element = this.layers[index];
-            if (index < 5){
-                element.draw(context, 1);
-            } else {
-                element.draw(context, 2);
-            }
-            
-        }*/
     }
 }

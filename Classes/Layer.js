@@ -9,21 +9,20 @@ export class Layer {
         this.y = 0;
     }
     update(){
-        if (this.x <= -this.width) this.x = 0;
-        else if (this.x >= this.width) this.x = 0;
-        this.x -= this.game.speed * this.speedModifier;
+        if (this.x <= -this.width) this.x = 0; // if layer went beyond the screen reset its position
+        else if (this.x >= this.width) this.x = 0; // if layer went beyond the screen reset its position
+        this.x -= this.game.speed * this.speedModifier; // move the image
     }
 
     draw(context, playerNum){
         context.drawImage(this.image, this.x, this.y);
-
-        if (playerNum == 1){
-            context.drawImage(this.image, this.x + this.width, this.y);
+        switch (playerNum) {
+            case 1: // if first player
+                context.drawImage(this.image, this.x + this.width, this.y);
+                break;
+            case 2: // if 2nd player
+                context.drawImage(this.image, this.x - this.width, this.y);
+                break;
         }
-        else if (playerNum == 2){
-            context.drawImage(this.image, this.x -this.width, this.y);
-        }
-
     }
-
 }

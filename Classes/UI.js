@@ -1,7 +1,7 @@
 export class UI {
     constructor(game){
         this.game = game;
-        this.fontSize = 25;
+        this.fontSize = 25; // default font size
         this.fontFamily = 'Bangers';
         this.color = 'white';
     }
@@ -12,7 +12,7 @@ export class UI {
         context.shadowOffsetY = 2;
         context.shadowColor = 'black';
         context.font = this.fontSize + 'px ' + this.fontFamily;
-        if (!isEnd){
+        if (!isEnd){ // if we are in the first game
             //score draw
             context.fillText('Score: ' + this.game.player1.score, 20, 40);
             context.fillText('Score: ' + this.game.player2.score, 850, 40);
@@ -35,7 +35,7 @@ export class UI {
             }
             context.restore();
         }
-        else {
+        else { // if we are in the last game
             //score draw
             context.fillText('Lives: ' + this.game.player1.lives, 20, 40);
             context.fillText('Lives: ' + this.game.player2.lives, 850, 40);

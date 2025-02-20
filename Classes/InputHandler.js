@@ -16,7 +16,6 @@ export class InputHandler {
         this.player2GamepadIndex = null;
 
         window.addEventListener('gamepadconnected', (event) => {
-            console.log(`Gamepad connected at index ${event.gamepad.index}: ${event.gamepad.id}`);
             
             const isWired = event.gamepad.id.toLowerCase().includes("usb") || event.gamepad.id.toLowerCase().includes("wired");
             
@@ -32,7 +31,6 @@ export class InputHandler {
         });
 
         window.addEventListener('gamepaddisconnected', (event) => {
-            console.log(`Gamepad disconnected at index ${event.gamepad.index}`);
             if (this.player1GamepadIndex === event.gamepad.index) {
                 this.player1GamepadIndex = null;
             } else if (this.player2GamepadIndex === event.gamepad.index) {
@@ -82,8 +80,8 @@ export class InputHandler {
         });
 
     }
+    // vibration for pressing event button
     async ultraPowerfulVibration(gamepad) {
-        console.log("working");
         
         if (gamepad && gamepad.vibrationActuator) {                
             await gamepad.vibrationActuator.playEffect('dual-rumble', {
@@ -96,7 +94,6 @@ export class InputHandler {
                 duration: 50, strongMagnitude: 0.8, weakMagnitude: 0.5
             });
         }
-        console.log("ending");
     }
     updateGamepads() {
         const gamepads = navigator.getGamepads();
@@ -200,6 +197,7 @@ export class InputHandler {
                 
             }
         }
+        // vibration for when shooting
         async function powerfulVibration(gamepad) {
             if (gamepad.vibrationActuator) {
                 await gamepad.vibrationActuator.playEffect('dual-rumble', {
@@ -230,22 +228,22 @@ export class InputHandler {
     handleEventTrigger = () => {
         if (this.game.eventActive && !this.game.eventWinner) {
             const gamepads = navigator.getGamepads();
-            if (this.keys.eventTrigger1) {
+            if (this.keys.eventTrigger1) { //if player 1 won the event
                 if (this.player1GamepadIndex !== null) {
                     const gp1 = gamepads[this.player1GamepadIndex];
                     if (gp1 && gp1.vibrationActuator) {
                         this.ultraPowerfulVibration(gp1);  
                     }
                 }
-                let tempRand = Math.floor(Math.random() * 3);
-                if (tempRand === 0) {
+                let tempRand = Math.floor(Math.random() * 3); // randomises the event
+                if (tempRand === 0) { // event tank
                     this.game.triggerAttack(this.game.player1, this.game.player2);
-                } else if (tempRand === 1) {
+                } else if (tempRand === 1) { // event salute
                     this.game.triggerRestriction(this.game.player1, this.game.player2);
-                } else {
+                } else { // event plane
                     this.game.triggerBouncing(this.game.player1, this.game.player2);
                 }
-            } else if (this.keys.eventTrigger2) {
+            } else if (this.keys.eventTrigger2) { //if player 2 won the event
                 if (this.player2GamepadIndex !== null) {
                     const gp2 = gamepads[this.player2GamepadIndex];
                     if (gp2 && gp2.vibrationActuator) {
@@ -254,12 +252,12 @@ export class InputHandler {
                     
                     
                 }
-                let tempRand = Math.floor(Math.random() * 3);
-                if (tempRand === 0) {
+                let tempRand = Math.floor(Math.random() * 3); // randomises the event
+                if (tempRand === 0) { // event tank
                     this.game.triggerAttack(this.game.player2, this.game.player1);
-                } else if (tempRand === 1) {
+                } else if (tempRand === 1) { // event salute
                     this.game.triggerRestriction(this.game.player2, this.game.player1);
-                } else {
+                } else { // event plane
                     this.game.triggerBouncing(this.game.player2, this.game.player1);
                 }
             }

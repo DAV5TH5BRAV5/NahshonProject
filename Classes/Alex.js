@@ -6,24 +6,23 @@ export class Alex extends Enemy {
         this.lives = 4;
         this.score = this.lives;
         this.height = 190;
-        this.y = Math.random() * (this.game.height * 0.95 - this.height);
-        if (this.y > 190){
-            this.width = 73;
-            this.height = 190;
+        this.y = Math.random() * (this.game.height * 0.95 - this.height); // adjust the spawning height of enemy
+        if (this.y > 190){ /* check for if the enemy spawns on the ground 
+                            (190 being 500 (height of game) minus player height and height of floor (120))*/
+            this.width = 73; //width of enemy image
+            this.height = 190; //height of enemy image
             this.image = document.getElementById('alex');
-            this.adjustX = 7;
-            this.adjustWidth = -9;
-            this.maxFrame = 7;
+            this.adjustX = 7; // adjustment of enemy image for when animations play
+            this.adjustWidth = -9; // adjustment of enemy image for when animations play
+            this.maxFrame = 7; // max frames of enemy animations
         } 
         else {
-            this.width = 190;
-            this.height = 73;
+            this.width = 190; //width of enemy image
+            this.height = 73;//height of enemy image
             this.image = document.getElementById('alexFly');
-            this.adjustX = 0;
-            this.adjustWidth = 0;
-            this.maxFrame = 0;
+            this.adjustX = 0; // adjustment of enemy image for when animations play
+            this.adjustWidth = 0; // adjustment of enemy image for when animations play
+            this.maxFrame = 0; // max frames of enemy animations
         }
-
-
     }
 }
