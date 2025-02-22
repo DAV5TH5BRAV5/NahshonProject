@@ -42,6 +42,10 @@ export class InputHandler {
     
         // Keyboard event listeners remain intact
         window.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                this.game.togglePause();
+            }
+            
             if( ( (e.key === 'ArrowUp') || 
                     (e.key ==='ArrowDown') || 
                     (e.key ==='w') || 
@@ -61,6 +65,7 @@ export class InputHandler {
             } else if (e.key === 'h') {
                 this.keys.eventTrigger2 = true;
             }
+            
         });
 
         window.addEventListener('keyup', e =>{
@@ -111,6 +116,7 @@ export class InputHandler {
     }
 
     handleGamepadInput(gamepad, player) {
+        if (this.game.isPaused) return; // Ignore gamepad input if paused
         const buttons = gamepad.buttons;
         const axes = gamepad.axes;
     
@@ -161,6 +167,7 @@ export class InputHandler {
     
 
     update() {
+        if (this.game.isPaused) return; // Stop inputs if paused
         const currentTime = Date.now();
         const gamepads = navigator.getGamepads();
     

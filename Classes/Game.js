@@ -53,8 +53,12 @@ export class Game {
         //handle last game is over
         this.lastGameOver = false;
 
+        //pause game
+        this.isPaused = false;
+
     }
     update(deltaTime){
+        if (this.isPaused) return; // Stop updating when paused
         if (!this.gameOver) this.gameTime += deltaTime; // if game 1 aint over track how long its been
         if (this.gameTime >= this.timeLimit) this.gameOver = true; // if game 1 over shoot me (or set gameOver to true)
         if (this.gameOver) this.enemies = []; // if game 1 is over remove all enemies
@@ -352,6 +356,16 @@ export class Game {
             context.fillRect(player.x - 20, maxY, player.width + 40, 5); // position of movement restrictions rectangles
         }
 
+        // detect if game is paused and display a pause screen
+        if (this.isPaused) {
+            context.fillStyle = 'rgba(0, 0, 0, 0.5)';
+            context.fillRect(0, 0, this.width, this.height);
+            context.fillStyle = 'white';
+            context.font = '30px Arial';
+            context.textAlign = 'center';
+            context.fillText('Game Paused', this.width / 2, this.height / 2);
+        }
+
     }
     addEnemy(direction){
         const randomize = Math.random(); // when an enemy spawns make him random
@@ -548,5 +562,8 @@ export class Game {
 
             }, 3000);
         }
+    }
+    togglePause() {
+        this.isPaused = !this.isPaused;
     }
 }

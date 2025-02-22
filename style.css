@@ -4,6 +4,8 @@
     box-sizing: border-box;
 }
 
+
+/* canvas drawing default settings */
 #canvas1{
     border: 5px solid black;
     position: absolute;
@@ -16,31 +18,29 @@
     font-family: 'Bangers', serif;
 }
 
+/* don't display any image at the starting screen */
 #layer1, #layer2, #layer3, #layer4, #layer5, #layer6, #layer7, #layer8, #layer9, #player, #itay, #itayFly, #yotam, #alex, #keva, #sonic, #tsuberi
 , #alex, #alexFly, #eli, #sword, #shai, #shatz, #ron, #soldierBoot, #master, #foodTicket{
     display: none;
 }
 
-
 h1 {
     text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
 }
 
+/* buttons on main screen like "play" or "show instructions" */
 button {
     background-color: yellow;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
     margin: 10px;
     cursor: pointer;
     font-size: 1.2em;
     font-weight: bold;
     border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+    transition: all 0.3s ease-in-out;
+    background: yellow;
+    margin-top: 10px;
 }
 
 /* Game Canvas */
@@ -51,6 +51,7 @@ button:hover {
     margin: auto;
     transition: opacity 0.5s ease-in-out;
 }
+
 body {
     background-image: url('./assets/Environment/layer4.png'), 
                       url('./assets/Environment/layer3.png'), 
@@ -68,6 +69,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
 }
 
 /* Character Selection Container */
@@ -94,7 +96,7 @@ body {
     word-wrap: break-word; 
 }
 
-
+/* Character Selection Container */
 .character-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -102,27 +104,35 @@ body {
     max-width: 80%;
     margin: auto;
     justify-content: center;
-    padding: 20px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    column-gap: 80px; /* Increased horizontal spacing */
+    padding: 30px 0; /* Only horizontal padding */
+    row-gap: 30px; /* Increased vertical spacing */
 }
 
 /* Character Box */
 .character {
     text-align: center;
-    padding: 15px;
     border-radius: 15px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px 40px; /* Increased vertical padding */
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 210px; /* Slightly smaller width */
+    height: 315px; /* Increased height to prevent jumping */
 }
 
 .character img {
-    width: 150px;
-    height: auto;
     border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.15s ease-in-out;
+    width: 110px; /* Reduced size to fit more characters */
+    height: auto;
 }
 
 .character img:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 15px yellow;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px yellow; /* Softer glow */
 }
 
 .selected {
@@ -131,7 +141,7 @@ body {
 }
 
 /* Buttons */
-.select-btn, button {
+.select-btn {
     background: yellow;
     border: none;
     padding: 10px 15px;
@@ -159,16 +169,6 @@ body {
     to { text-shadow: 0 0 20px orange; }
 }
 
-.character {
-    width: 200px;
-    text-align: center;
-    padding: 15px;
-    border-radius: 15px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-}
-
 .character h2 {
     font-size: 1.2em;
     color: yellow;
@@ -188,13 +188,7 @@ body {
     text-shadow: 0 0 5px black;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-}
-
+/* Instruction Modal */
 .modal {
     position: fixed;
     top: 100%;
@@ -206,6 +200,9 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: top 0.5s ease-out, opacity 0.5s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal.show {
@@ -217,19 +214,37 @@ body {
 .modal-content {
     position: relative;
     background-color: #fff;
-    color: #000; /* Ensure the text is visible */
+    color: #000;
     padding: 20px;
     border-radius: 10px;
     max-width: 800px;
     width: 90%;
     max-height: 90vh;
-    overflow-y: auto; /* Ensure scrolling if content is too large */
-    margin: 40px auto;
+    overflow-y: auto;
+    margin: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     direction: rtl;
-    text-align: right;
+    text-align: center;
+    display: block;
 }
 
+.modal-content img {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%; /* Allows full width scaling */
+    height: auto;
+}
+
+.modal-content img.shift-left {
+    margin-left: -100px;
+}
+
+/* Allow closing modal by clicking outside */
+.modal:not(.modal-content) {
+    cursor: pointer;
+}
+
+/* close button of modal */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -247,11 +262,6 @@ body {
     background-color: darkred;
 }
 
-.character-container {
-    overflow: hidden;
-    margin-bottom: 40px;
-}
-
 .character-container img {
     max-width: 150px;
     height: auto;
@@ -266,8 +276,31 @@ img {
     margin-bottom: 20px;
 }
 
-
+/* class to change dir of cirtin images or text */
 .rtlClass {
     text-align: center
 }
 
+/* Placeholder for character selection text */
+.character-selection {
+    min-height: 40px; /* Consistent height for all characters */
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    visibility: hidden; /* Placeholder remains even if no text is added */
+    display: block;
+}
+
+/* Placeholder for selected character */
+.selected-character {
+    min-height: 50px; /* Ensures space for all selections */
+    font-size: 1.5em;
+    font-weight: bold;
+    color: yellow;
+    text-align: center;
+    margin-top: 15px;
+    visibility: hidden; /* Placeholder remains until text is added */
+    display: block;
+}

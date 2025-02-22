@@ -6,6 +6,9 @@ export class UI {
         this.color = 'white';
     }
     draw(context, isEnd = false){
+        this.fontSize = 25; // default font size
+        this.fontFamily = 'Bangers';
+        context.textAlign = 'left';
         context.save();
         context.fillStyle = this.color;
         context.shadowOffsetX = 2;

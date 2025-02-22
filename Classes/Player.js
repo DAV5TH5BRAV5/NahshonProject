@@ -19,7 +19,7 @@ export class Player {
         this.powerUp = false;
         this.powerUpTimer = 0;
         this.powerupLimit = 10000;
-        this.lives = 100;
+        this.lives = 50;
         this.isEnd = isEnd;
         this.canShoot = canShoot;
         this.tempAmmo = 0; // keeps track of ammo as temp place holder when reseting ammo

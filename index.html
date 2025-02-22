@@ -45,12 +45,14 @@
             <h2>אלי</h2>
             <p>חוזק: נמוך - קשה לפגיעה</p>
             <p>חולשה: נשק קטן - קשה לפגוע</p>
+            <p class="role-info">‎</p>
         </div>
         <div class="character" onclick="selectCharacter(this, 'Shai')">
             <img src="assets/CharacterImages/Shai2.png" alt="Shai">
             <h2>שי</h2>
             <p>חוזק: נשק ענק - קל לפגוע</p>
             <p>חולשה: גבוה - קל לפגיעה</p>
+            <p class="role-info">‎</p>
         </div>
         <div class="character" onclick="selectCharacter(this, 'Ron')">
             <img src="assets/CharacterImages/Ron.png" alt="Ron">
@@ -63,6 +65,7 @@
             <h2>הכרטיסן המלך</h2>
             <p>חוזק: נשק גדול - קל לפגוע</p>
             <p>חולשה: גבוה - קל לפגיעה</p>
+            <p class="role-info">‎</p>
         </div>
     </div>
 
@@ -78,36 +81,41 @@
 
             <!-- Title Section -->
             <h1 class = "rtlClass">צוברי נגד העולם</h1>
-
+            <br>
             <!-- Section 1: Character Selection -->
             <h2>בחירת שחקנים</h2>
             <p>המשחק מתחיל בכך שכל שחקן בוחר שחקן. לכל דמות יש חוזקה וחולשה ייחודית המשפיעות על המשחק</p>
+            <br>
 
             <!-- Character Descriptions -->
+            <h3>אלי</h3>
             <div class="character-container">
-                <h3>אלי</h3>
-                <img src="assets/CharacterImages/Eli.png" alt="Eli">
+                <img src="assets/CharacterImages/Eli.png" alt="Eli" class = "shift-left">
+                <br>
                 <p><strong>חוזקה:</strong> נמוך - קשה לפגיעה, כלומר לאוייבים קשה לפגוע באלי והיריב יתקשה יותר בלפגוע בו</p>
                 <p><strong>חולשה:</strong> נשק קטן -קשה לפגוע באוייבים שונים וקשה יותר לפגוע בשחקן היריב</p>
             </div>
 
+            <h3>שי</h3>
             <div class="character-container">
-                <h3>שי</h3>
-                <img src="assets/CharacterImages/Shai2.png" alt="Shai">
+                <img src="assets/CharacterImages/Shai2.png" alt="Shai" class = "shift-left">
+                <br>
                 <p><strong>חוזקה:</strong> נשק ענק - קל לפגוע באוייבים וקל יותר לפגוע בשחקן היריב</p>
                 <p><strong>חולשה:</strong> גבוה - קל לפגיעה על ידי אוייבים וקל לשחקן היריב לפגוע בו</p>
             </div>
 
+            <h3>רון</h3>
             <div class="character-container">
-                <h3>רון</h3>
-                <img src="assets/CharacterImages/Ron.png" alt="Ron">
+                <img src="assets/CharacterImages/Ron.png" alt="Ron" class = "shift-left">
+                <br>
                 <p><strong>חוזקה:</strong> חתיך אש - מהפנט את כולם מרוב יופיו</p>
                 <p><strong>חולשה:</strong> נשק קטן - קשה לפגוע באוייבים שונים או בשחקן היריב</p>
             </div>
 
+            <h3>הכרטיסן המלך</h3>
             <div class="character-container">
-                <h3>הכרטיסן המלך</h3>
-                <img src="assets/CharacterImages/master.png" alt="The Ticket Master">
+                <img src="assets/CharacterImages/master.png" alt="The Ticket Master" class = "shift-left">
+                <br>
                 <p><strong>חוזקה:</strong> נשק גדול - קל לפגוע באוייבים שונים ובשחקן היריב</p>
                 <p><strong>חולשה:</strong> גבוה - קל לפגיעה על ידי אוייבים שונים ועל ידי השחקן היריב</p>
             </div>
@@ -122,6 +130,8 @@
             <ul>
                 <li>שחקן 1: זז למעלה (W), זז למטה (S), לירות (E)</li>
                 <li>שחקן 2: זז למעלה (חץ למעלה), זז למטה (חץ למטה), לירות (ברווח)</li>
+                <li>לעצור את המשחק או להמשיכו: "Esc"</li>
+
             </ul>
             <br>
             <h3>המשחק הראשון</h3>
@@ -136,23 +146,31 @@
 
             <!-- Enemy Descriptions -->
             <h3>אויבים:</h3>
-
+            <br>
             <h4>איתי</h4>
             <p>איתי יכול להיות בשני מצבים: הליכה (על פני הקרקע) או ספיידרמן (מעל הקרקע). יש לו 2 חיים (כלומר לוקח 2 יריות כדי להיהרג) והוא נע במהירות בינונית, אך יכול להשתנות ברנדומאליות למהירות גבוהה יותר או נמוכה יותר. מופיע 50% מהזמן ונותן 2 נקודות כאשר נהרג.</p>
+            <br>
             <img src="assets/Instructions And Events/itayWalkingAndFlying.png" alt="Itay Walking">
+            <br>
 
             <h4>אלכס</h4>
             <p>אלכס יכול להיות בשני מצבים: הליכה (על פני הקרקע) או סופרמן (מעל הקרקע). יש לו 4 חיים (כלומר לוקח 4 יריות כדי להיהרג) והוא נע במהירות בינונית, אך יכול להשתנות ברנדומאליות למהירות גבוהה יותר או נמוכה יותר. מופיע 38% מהזמן ונותן 4 נקודות כאשר נהרג.</p>
+            <br>
             <img src="assets/Instructions And Events/alexWalkingAndFlying.png" alt="Alex Walking">
+            <br>
 
             <h4>יותם</h4>
             <p>יותם יכול להיות בשני מצבים: הליכה או תעופה. יש לו 3 חיים (כלומר לוקח 3 יריות כדי להיהרג) והוא נע במהירות בינונית, אך יכול להשתנות ברנדומאליות למהירות גבוהה יותר או נמוכה יותר. מופיע 10% מהזמן. יותם הוא אויב "המזל": כשהוא נהרג הוא נותן 15 נקודות. אך אם הוא מתנגש עם השחקן, השחקן נכנס למצב "כוח מיוחד" :במצב "כוח מיוחד" התחמושת של השחקן הופכת לצהובה והתחמושת המקסימלית שלו הופכת ל-50 כעת. התחמושת מתחדשת במהירויות מאוד מהירה וגם השחקן יורה פי שניים כדורים לכל ירייה (2 כדורים במקום אחד). המצב נמשך 10 שניות.</p>
+            <br>
             <img src="assets/Instructions And Events/yotamWalkingAndFlying.png" alt="Yotam Walking">
-
+            <br>
+            
             <h4>צוברי</h4>
             <p>צוברי יכול להיות רק במצב הליכה. יש לו 50 חיים (כלומר לוקח 50 יריות) והוא נע לאט מאוד. הוא יורה "תפסי קבע" לעבר השחקן, ומאלץ את השחקן להיכנס ל"קבע". כל פגיעה של תופס "קבע" מפחיתה את הניקוד של השחקן ב-5 נקודות. מופיע 2% מהזמן ונותן 50 נקודות כשהוא נהרג.</p>
+            <br>
             <img src="assets/Instructions And Events/tsuberiWalk.png" alt="Tsuberi Walking">
-
+            <br>
+            
             <!-- Section 3: Final Game -->
             <h2>המשחק הסופי</h2>
             <p>אמרנו שהמשחק מחולק ל-2 חלקים. המשחק הראשון וכעט המשחק האחרון: לאחר 120 שניות, הסדק במסך נעלם, והשחקנים עוברים למשחק האחרון. שחקנים מתחילים עם 100 חיים ומקבלים/מפסידים 1 חיים על כל 2 נקודות שהיו להם במשחק הראשון. מינימום החיים הוא 10.</p>
