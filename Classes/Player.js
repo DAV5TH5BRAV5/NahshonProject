@@ -271,63 +271,62 @@ export class Player {
                                                           false, // defines it non enemy projectile
                                                            isEnd, // if its the end game
                                                             this.id)); // unique player id
-            this.ammo--;
-            switch (this.id) {
-                // resets the shooting animation 
-                case 1: // Eli
-                    if (this.frameY !== 1) { // if he isn't already in shooting animation
-                        this.frameY = 1;
-                        this.frameX = 0;
-                        this.maxFrame = 6;
-                        this.frameInterval = 75;
-                        this.adjustWidth = 69;
-                        this.adjustHeight = 30;
-                    }
-                    break;
-            
-                case 2: // Shai
-                    if (this.frameY !== 1 && !this.powerUp) { // if he isn't already in shooting animation or power up
-                        this.frameY = 1;
-                        this.frameX = 0;
-                        this.maxFrame = 9;
-                        this.frameInterval = 65;
-                        this.adjustWidth = 49;
-                        this.adjustHeight = 0;
-                    }
-                    break;
-            
-                case 3: // Ron
-                    if (this.frameY !== 1) { // if he isn't already in shooting animation
-                        this.frameY = 1;
-                        this.frameX = 0;
-                        this.maxFrame = 11;
-                        this.frameInterval = 55;
-                        this.adjustWidth = 45;
-                        this.adjustHeight = 0;
-                    }
-                    break;
-            
-                case 4: // Card Master
-                    if (this.frameY !== 1) { // if he isn't already in shooting animation
-                        this.frameY = 1;
-                        this.frameX = 0;
-                        this.maxFrame = 9;
-                        this.frameInterval = 75;
-                        this.adjustWidth = 11;
-                        this.adjustHeight = 0;
-                    }
-                    break;
-            }
-            
-            // Play shooting sound if it's not already playing
-            if (!this.shootingSoundPlaying) {
-                this.shootingSound.play();
-                this.shootingSoundPlaying = true;
-                this.shootingSound.onended = () => {
-                    this.shootingSoundPlaying = false;
-                };
-            }
-            
+            this.ammo--;  
+        }
+        switch (this.id) {
+            // resets the shooting animation 
+            case 1: // Eli
+                if (this.frameY !== 1) { // if he isn't already in shooting animation
+                    this.frameY = 1;
+                    this.frameX = 0;
+                    this.maxFrame = 6;
+                    this.frameInterval = 75;
+                    this.adjustWidth = 69;
+                    this.adjustHeight = 30;
+                }
+                break;
+        
+            case 2: // Shai
+                if (this.frameY !== 1 && !this.powerUp) { // if he isn't already in shooting animation or power up
+                    this.frameY = 1;
+                    this.frameX = 0;
+                    this.maxFrame = 9;
+                    this.frameInterval = 65;
+                    this.adjustWidth = 49;
+                    this.adjustHeight = 0;
+                }
+                break;
+        
+            case 3: // Ron
+                if (this.frameY !== 1) { // if he isn't already in shooting animation
+                    this.frameY = 1;
+                    this.frameX = 0;
+                    this.maxFrame = 11;
+                    this.frameInterval = 55;
+                    this.adjustWidth = 45;
+                    this.adjustHeight = 0;
+                }
+                break;
+        
+            case 4: // Card Master
+                if (this.frameY !== 1) { // if he isn't already in shooting animation
+                    this.frameY = 1;
+                    this.frameX = 0;
+                    this.maxFrame = 9;
+                    this.frameInterval = 75;
+                    this.adjustWidth = 11;
+                    this.adjustHeight = 0;
+                }
+                break;
+        }
+        
+        // Play shooting sound if it's not already playing
+        if (!this.shootingSoundPlaying) {
+            this.shootingSound.play();
+            this.shootingSoundPlaying = true;
+            this.shootingSound.onended = () => {
+                this.shootingSoundPlaying = false;
+            };
         }
         else if (this.ammo <= 0) // if player doesn't have ammo
              this.allowControllerVibrate = false; // don't vibrate controller (or sex device)
