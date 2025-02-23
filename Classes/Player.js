@@ -104,7 +104,8 @@ export class Player {
                  this.frameX = 3;  //change his starting frame to 3 to make animation smooth
             else this.frameX = 0; // if there are no more frames then reset the frames
 
-            switch (this.id) {
+            // reset the animation if we have reached the end
+            switch (this.id) { // Eli
                 case 1:
                     if (this.frameY == 1 && this.frameX == this.maxFrame) {
                         this.frameY = 0;
@@ -116,22 +117,22 @@ export class Player {
                     }
                     break;
             
-                case 2:
-                    if (this.powerUp && this.frameX == this.maxFrame) {
+                case 2: // Shai
+                    if (this.powerUp && this.frameX == this.maxFrame) { // for continous special ability animation
                         this.frameY = 2;
                         this.frameX = 0;
                         this.maxFrame = 9;
                         this.frameInterval = 70;
                         this.adjustWidth = 119;
                         this.adjustHeight = 29;
-                    } else if (!this.powerUp && this.frameY == 2) {
+                    } else if (!this.powerUp && this.frameY == 2) { // for end of special ability animation
                         this.frameY = 0;
                         this.frameX = 0;
                         this.maxFrame = 5;
                         this.frameInterval = 125;
                         this.adjustWidth = 0;
                         this.adjustHeight = 0;
-                    } else if (this.frameY == 1 && this.frameX == this.maxFrame) {
+                    } else if (this.frameY == 1 && this.frameX == this.maxFrame) { // for end of animation
                         this.frameY = 0;
                         this.frameX = 0;
                         this.maxFrame = 5;
@@ -141,7 +142,7 @@ export class Player {
                     }
                     break;
             
-                case 3:
+                case 3: // Eli
                     if (this.frameY == 1 && this.frameX == this.maxFrame) {
                         this.frameY = 0;
                         this.frameX = 0;
@@ -152,7 +153,7 @@ export class Player {
                     }
                     break;
             
-                case 4:
+                case 4: // Card Master
                     if (this.frameY == 1 && this.frameX == this.maxFrame) {
                         this.frameY = 0;
                         this.frameX = 0;
