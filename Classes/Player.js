@@ -18,7 +18,7 @@ export class Player {
         this.winningScore = 10;
         this.powerUp = false;
         this.powerUpTimer = 0;
-        this.powerupLimit = 10000;
+        this.powerupLimit = 10000; // power up lasts 10 seconds 
         this.lives = 50;
         this.isEnd = isEnd;
         this.canShoot = canShoot;
