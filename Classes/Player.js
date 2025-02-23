@@ -95,7 +95,6 @@ export class Player {
             }
         }
 
-
         this.frameTimer += deltaTime; // keep track of how long since last frame change
         if (this.frameTimer > this.frameInterval) { // if its time to change frames
             if (this.frameX < this.maxFrame) // if another frame is available
@@ -108,59 +107,29 @@ export class Player {
             switch (this.id) { // Eli
                 case 1:
                     if (this.frameY == 1 && this.frameX == this.maxFrame) {
-                        this.frameY = 0;
-                        this.frameX = 0;
-                        this.maxFrame = 4;
-                        this.frameInterval = 150;
-                        this.adjustWidth = 0;
-                        this.adjustHeight = 0;
+                        this.setAnimationVariables(0, 0, 4, 150, 0, 0);
                     }
                     break;
             
                 case 2: // Shai
                     if (this.powerUp && this.frameX == this.maxFrame) { // for continous special ability animation
-                        this.frameY = 2;
-                        this.frameX = 0;
-                        this.maxFrame = 9;
-                        this.frameInterval = 70;
-                        this.adjustWidth = 119;
-                        this.adjustHeight = 29;
+                        this.setAnimationVariables(2, 0, 9, 70, 119, 29);
                     } else if (!this.powerUp && this.frameY == 2) { // for end of special ability animation
-                        this.frameY = 0;
-                        this.frameX = 0;
-                        this.maxFrame = 5;
-                        this.frameInterval = 125;
-                        this.adjustWidth = 0;
-                        this.adjustHeight = 0;
+                        this.setAnimationVariables(0, 0, 5, 125, 0, 0);
                     } else if (this.frameY == 1 && this.frameX == this.maxFrame) { // for end of animation
-                        this.frameY = 0;
-                        this.frameX = 0;
-                        this.maxFrame = 5;
-                        this.frameInterval = 125;
-                        this.adjustWidth = 0;
-                        this.adjustHeight = 0;
+                        this.setAnimationVariables(0, 0, 5, 125, 0, 0);
                     }
                     break;
             
                 case 3: // Eli
                     if (this.frameY == 1 && this.frameX == this.maxFrame) {
-                        this.frameY = 0;
-                        this.frameX = 0;
-                        this.maxFrame = 4;
-                        this.frameInterval = 125;
-                        this.adjustWidth = 0;
-                        this.adjustHeight = 0;
+                        this.setAnimationVariables(0, 0, 4, 125, 0, 0);
                     }
                     break;
             
                 case 4: // Card Master
                     if (this.frameY == 1 && this.frameX == this.maxFrame) {
-                        this.frameY = 0;
-                        this.frameX = 0;
-                        this.maxFrame = 9;
-                        this.frameInterval = 100;
-                        this.adjustWidth = 0;
-                        this.adjustHeight = 0;
+                        this.setAnimationVariables(0, 0, 9, 100, 0, 0);
                     }
                     break;
             }
@@ -204,25 +173,25 @@ export class Player {
         else { // if its the first player
             if (this.id == 2 && this.x > 500 && this.powerUp)
                  context.drawImage(this.image,
-                 this.frameX * (this.width + this.adjustWidth), //adjust image frame
-                  this.frameY * this.height + this.adjustHeight, //adjust image frame
-                   this.width + this.adjustWidth, //adjust image MAX width
-                    this.height, //adjust image MAX height
-                     this.x - this.width / 2, // adjust image X so he fits with animation 
-                      this.y, // image Y
-                       this.width + this.adjustWidth, //adjust image width
-                        this.height); //adjust image height
+                                    this.frameX * (this.width + this.adjustWidth), //adjust image frame
+                                     this.frameY * this.height + this.adjustHeight, //adjust image frame
+                                      this.width + this.adjustWidth, //adjust image MAX width
+                                       this.height, //adjust image MAX height
+                                        this.x - this.width / 2, // adjust image X so he fits with animation 
+                                         this.y, // image Y
+                                          this.width + this.adjustWidth, //adjust image width
+                                           this.height); //adjust image height
             
             
             else context.drawImage(this.image,
-                 this.frameX * (this.width + this.adjustWidth), //adjust image frame
-                  this.frameY * this.height + this.adjustHeight, //adjust image frame
-                   this.width + this.adjustWidth, //adjust image MAX width
-                    this.height, //adjust image MAX height
-                     this.x, // adjust image X so he fits with animation 
-                      this.y, // image Y
-                       this.width + this.adjustWidth, //adjust image width
-                        this.height); //adjust image height
+                                    this.frameX * (this.width + this.adjustWidth), //adjust image frame
+                                     this.frameY * this.height + this.adjustHeight, //adjust image frame
+                                      this.width + this.adjustWidth, //adjust image MAX width
+                                       this.height, //adjust image MAX height
+                                        this.x, // adjust image X so he fits with animation 
+                                         this.y, // image Y
+                                          this.width + this.adjustWidth, //adjust image width
+                                           this.height); //adjust image height
         }
 
         if (this.hitTimer > 0) { // if was hit
@@ -277,45 +246,25 @@ export class Player {
             // resets the shooting animation 
             case 1: // Eli
                 if (this.frameY !== 1) { // if he isn't already in shooting animation
-                    this.frameY = 1;
-                    this.frameX = 0;
-                    this.maxFrame = 6;
-                    this.frameInterval = 75;
-                    this.adjustWidth = 69;
-                    this.adjustHeight = 30;
+                    this.setAnimationVariables(1, 0, 6, 75, 69, 30);
                 }
                 break;
         
             case 2: // Shai
                 if (this.frameY !== 1 && !this.powerUp) { // if he isn't already in shooting animation or power up
-                    this.frameY = 1;
-                    this.frameX = 0;
-                    this.maxFrame = 9;
-                    this.frameInterval = 65;
-                    this.adjustWidth = 49;
-                    this.adjustHeight = 0;
+                    this.setAnimationVariables(1, 0, 9, 65, 49, 0);
                 }
                 break;
         
             case 3: // Ron
                 if (this.frameY !== 1) { // if he isn't already in shooting animation
-                    this.frameY = 1;
-                    this.frameX = 0;
-                    this.maxFrame = 11;
-                    this.frameInterval = 55;
-                    this.adjustWidth = 45;
-                    this.adjustHeight = 0;
+                    this.setAnimationVariables(1, 0, 11, 55, 45, 0);
                 }
                 break;
         
             case 4: // Card Master
                 if (this.frameY !== 1) { // if he isn't already in shooting animation
-                    this.frameY = 1;
-                    this.frameX = 0;
-                    this.maxFrame = 9;
-                    this.frameInterval = 75;
-                    this.adjustWidth = 11;
-                    this.adjustHeight = 0;
+                    this.setAnimationVariables(1, 0, 9, 75, 11, 0);
                 }
                 break;
         }
@@ -429,5 +378,14 @@ export class Player {
         } else {
             context.drawImage(offScreenCanvas, this.x, this.y);
         }
+    }
+    // set animation variables
+    setAnimationVariables (frameY, frameX, maxFrame, frameInterval, adjustWidth, adjustHeight){
+        this.frameY = frameY;
+        this.frameX = frameX;
+        this.maxFrame = maxFrame;
+        this.frameInterval = frameInterval;
+        this.adjustWidth = adjustWidth;
+        this.adjustHeight = adjustHeight;
     }
 }
